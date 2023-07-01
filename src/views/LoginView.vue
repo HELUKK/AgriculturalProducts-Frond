@@ -1,21 +1,27 @@
 <template>
     <div class="login">
+      <div class="head">
+        <el-icon size="40px" color="rgb(151, 231, 58)" id="h"><Pear /></el-icon>
+        <h2>登录界面</h2>
+    </div>
     <el-form
       ref="account"
       :model="store.user"
       status-icon
-      label-width="40%"
+      label-width="120px"
       class="demo-ruleForm"
-      id="ff"
     >
-      <el-form-item label="username" prop="username">
-        <el-input v-model="store.user.nickName" />
+    
+      <el-form-item label="" prop="username" id="ff1">
+        <el-icon size="30px" id="in"><User /></el-icon>
+        <el-input v-model="store.user.nickName"  placeholder="用户名"/>
       </el-form-item>
-      <el-form-item label="Password" prop="pass"  >
-        <el-input v-model="store.user.password" type="password" autocomplete="off"  />
+      <el-form-item label="" prop="pass" id="ff" >
+        <el-icon size="30px" id="in"><Lock /></el-icon>
+        <el-input v-model="store.user.password" type="password" autocomplete="off" placeholder="密码" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="">登录</el-button
+        <el-button type="primary" @click="login">登录</el-button
         >
         <el-button type="success"  @click="regit">注册</el-button>
       </el-form-item>
@@ -62,23 +68,11 @@
   <script lang="ts" setup>
   import { reactive, ref } from 'vue'
   import { useStore } from '@/stores/index'
-  import { ElMessage,ElMessageBox } from 'element-plus'
+  import { ElMessage,ElMessageBox } from "element-plus"
   import  {USER,ADMIN} from '@/dataource/UserType'
    import type { Action } from 'element-plus'
+   import {open} from  '@/components/MessageView.vue'
 
-const open = () => {
-  ElMessageBox.alert('This is a message', '注册结果', {
-    // if you want to disable its autofocus
-    // autofocus: false,
-    confirmButtonText: 'OK',
-    callback: (action: Action) => {
-      ElMessage({
-        type: 'info',
-        message: `action: ${action}`,
-      })
-    },
-  })
-}
   const usertype = {
      user: USER,
      admin: ADMIN
@@ -91,7 +85,7 @@ const open = () => {
 
   const store =  useStore();
   const login = () => {
-
+      store.login();
   }
   const register = () => {
     store.user.nickName = newuser.username;
@@ -99,17 +93,7 @@ const open = () => {
     store.user.role = newuser.role;
     store.register();
     console.log(store.message)
-    ElMessageBox.alert(store.message, '注册结果', {
-    // if you want to disable its autofocus
-    // autofocus: false,
-    confirmButtonText: 'OK',
-    callback: (action: Action) => {
-      ElMessage({
-        type: 'info',
-        message: `action: ${action}`,
-      })
-    },
-  })
+    open(store.message);
 
   }
 
@@ -132,13 +116,38 @@ const handleClose = (done: () => void) => {
   </script>
   <style>
 .login{ 
-    margin: 20% 20% 30% 20%;
-    width: 50%;
+    margin: 10% 10% 20% 35%;
+    width: 500px;
     height: 40%;
-    padding: 20px;
-    border: 1px solid red;
+    padding-top: 0px;
+    border: 1px solid rgb(151, 231, 58);
+    background-color: rgb(255, 255, 255);
 }
 #ff{
-    margin-right: 20%;
+  display: flex;
+  
+}
+#ff1{
+  display: flex;
+  margin-bottom: 0;
+}
+.demo-ruleForm{
+   width: 70%;
+}
+#in{
+  display: inline-block;
+  margin-left: 10%;
+  position: relative;
+  right: 30%;
+  top: 45%;
+}
+.head{
+  display: flex;
+  margin-left: 25%;
+  margin-top: 5%;
+}
+h2{
+  margin: 0;
+  margin-top: 1%;
 }
 </style>
