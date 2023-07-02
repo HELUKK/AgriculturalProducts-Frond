@@ -2,7 +2,15 @@
     <div class="common-layout">
       <el-container class="all"> 
         <el-header class="head">
-          <el-button type="warning" class="zx" round>注销</el-button>
+          <el-icon size="50px" color="#fffffffd" class="ii"><Shop /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Watermelon /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Grape /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Orange /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Pear /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Apple /></el-icon>
+          <h1 class="h">融销通</h1>
+          <h2 class="h2">.com</h2>
+          <el-button type="Default" class="zx" @click="logout" round>注销</el-button>
         </el-header>
         <el-container>
           <el-aside width="200px">
@@ -65,6 +73,7 @@
 <script lang="ts" setup>
 import router from '@/router';
 import { useStore } from '@/stores/index';
+import {open} from '@/components/MessageView.vue'
  const store = useStore(); 
  const hello = () =>{
      router.push('/hello')
@@ -73,7 +82,11 @@ import { useStore } from '@/stores/index';
      router.push('/goshop')
      console.log("被调用了")
  }
+ const logout= () => {
 
+   store.logout();
+   open("注销成功")
+ }
 
 </script>
 <style scoped>
@@ -107,11 +120,55 @@ import { useStore } from '@/stores/index';
   height: auto;
 }
 .main{
-    border: 1px solid red;
+    border: 1px solid rgb(59, 62, 65);
 }
 .head{
-    border: 1px solid red;
+    border: 0px solid rgb(14, 0, 0);
+    background-color: rgb(59, 62, 65);
     margin: 0;
   padding: 0;
+}
+.h{
+   	width: 33%;
+    line-height: 85px;
+    color: #fffffffd;
+    text-shadow: 0 0 5px #0a0600; /* 利用文字阴影 */
+    font-size: 46px;
+    font-family: 'yjsz'; /* 这是重点！！！ */
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    position: absolute;
+    top: 1px;
+    right: 80%;
+}
+.h2{
+  display: inline;
+  width: 33%;
+    line-height: 85px;
+    color: #fffffffd;/* 浅蓝色 */
+    text-shadow: 0 0 5px #08075a; /* 利用文字阴影 */
+    font-size: 46px;
+    font-family: 'yjsz'; /* 这是重点！！！ */
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 3px;
+    right: 74%;
+}
+.ii{
+  position: absolute;
+    top: 2%;
+    right: 87%;
+    margin: 0;
+    padding: 0;
+}
+.cc{
+  position: relative;
+  padding: 0;
+  margin: 0;
+  top: 30%;
 }
 </style>

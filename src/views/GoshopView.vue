@@ -71,9 +71,6 @@ onMounted(()=>{
 .col{
     margin: 5px;
 }
-.col:hover{
-  width: 10px;
-}
 .bu{
   position: absolute;
   bottom: 8%;

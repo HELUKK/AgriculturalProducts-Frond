@@ -35,6 +35,11 @@ export  const useStore = defineStore('useStore', {
     console.log(this.goods[0].createTime)
     console.log(this.total)
     },
+    logout(){
+       this.token = ''
+       window.sessionStorage.removeItem("token")
+       router.push('/login')
+    },
     async login() {
         try {
             console.log("login请求前");
