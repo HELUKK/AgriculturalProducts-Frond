@@ -88,7 +88,7 @@
     store.user.nickName = newuser.username;
     store.user.password = newuser.password;
     store.user.role = newuser.role;
-
+    store.register();
   }
 
   const regit = () => {
