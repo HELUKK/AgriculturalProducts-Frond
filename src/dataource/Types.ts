@@ -1,6 +1,7 @@
 export interface User {
     nickName: string
     password: String
+    userName?:string
     role?: string
     name?: string
 }

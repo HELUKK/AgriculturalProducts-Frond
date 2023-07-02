@@ -1,7 +1,9 @@
 <template>
     <div class="common-layout">
       <el-container class="all"> 
-        <el-header class="head">Header</el-header>
+        <el-header class="head">
+          <el-button type="warning" class="zx" round>注销</el-button>
+        </el-header>
         <el-container>
           <el-aside width="200px">
             <!-- aside -->
@@ -39,10 +41,12 @@
           <el-icon><document /></el-icon>
           <span>个人信息管理</span>
         </el-menu-item>
+        <label @click="hello">
         <el-menu-item index="4" class="daoh">
-          <el-icon><setting /></el-icon>
-          <span>Navigator Four</span>
+          <el-icon><Orange /></el-icon>
+          <span >hello</span>
         </el-menu-item>
+      </label>
       </el-menu>
     </el-col>
   </el-row>
@@ -50,7 +54,7 @@
 
           <!-- main -->
           <el-main class="main">
-             <RouterView></RouterView>
+             <RouterView id="mm"></RouterView>
           </el-main>
         </el-container>
       </el-container>
@@ -60,30 +64,28 @@
 
 <script lang="ts" setup>
 import router from '@/router';
-
+import { useStore } from '@/stores/index';
+ const store = useStore(); 
+ const hello = () =>{
+     router.push('/hello')
+ }
  const goshop = () =>{
      router.push('/goshop')
      console.log("被调用了")
  }
 
-  
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style scoped>
+.zx{
+  margin: 0;
+ position: absolute;
+ right: 5%;
+ top: 3%;
+}
+#mm{
+  height: 100%;
+}
 .aside{
     width: 200px;
 }
@@ -107,10 +109,9 @@ import router from '@/router';
 .main{
     border: 1px solid red;
 }
-.daoh{
-    height: auto;
-}
 .head{
     border: 1px solid red;
+    margin: 0;
+  padding: 0;
 }
 </style>

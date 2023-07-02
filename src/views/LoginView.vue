@@ -14,7 +14,7 @@
     
       <el-form-item label="" prop="username" id="ff1">
         <el-icon size="30px" id="in"><User /></el-icon>
-        <el-input v-model="store.user.nickName"  placeholder="用户名"/>
+        <el-input v-model="store.user.userName"  placeholder="用户名"/>
       </el-form-item>
       <el-form-item label="" prop="pass" id="ff" >
         <el-icon size="30px" id="in"><Lock /></el-icon>
@@ -38,7 +38,7 @@
     <span>Hi, there!</span>
     <!--注册表单-->
     <el-form :inline="true" :model="newuser" class="demo-form-inline" >
-    <el-form-item label="user-name">
+    <el-form-item label="nickName">
       <el-input v-model="newuser.username"  placeholder="用户名" clearable />
     </el-form-item>
     <el-form-item label="user-role">
@@ -70,8 +70,6 @@
   import { useStore } from '@/stores/index'
   import { ElMessage,ElMessageBox } from "element-plus"
   import  {USER,ADMIN} from '@/dataource/UserType'
-   import type { Action } from 'element-plus'
-   import {open} from  '@/components/MessageView.vue'
 
   const usertype = {
      user: USER,
@@ -82,7 +80,6 @@
   password: '',
   role: '',
 })
-
   const store =  useStore();
   const login = () => {
       store.login();
@@ -91,15 +88,11 @@
     store.user.nickName = newuser.username;
     store.user.password = newuser.password;
     store.user.role = newuser.role;
-    store.register();
-    console.log(store.message)
-    open(store.message);
 
   }
 
   const regit = () => {
     drawer.value = true;
-
   }
 
 const drawer = ref(false)
@@ -114,6 +107,8 @@ const handleClose = (done: () => void) => {
     })
 }
   </script>
+
+  
   <style>
 .login{ 
     margin: 10% 10% 20% 35%;

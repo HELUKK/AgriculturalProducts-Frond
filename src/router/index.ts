@@ -21,10 +21,41 @@ const router = createRouter({
           name:"goshop",
           path:"/goshop",
           component:() => import("@/views/GoshopView.vue")
+        },
+        {
+          name:"hello",
+          path:"/hello",
+          component:() => import("@/components/HelloView.vue")
+        },
+        { path:"",
+         meta:{title:"hello"},
+         redirect:"/hello"
         }
       ]
     }
   ]
 })
-
+//守卫
+router.beforeEach((to, from, next) => {
+  if (to.path == '/login') {
+    const token = window.sessionStorage.getItem("token")
+    if (!token) {
+      next()
+      return;
+    } else{
+      next('home');
+    }
+    next()
+  }
+  else{
+    const token = window.sessionStorage.getItem("token")
+    if (!token) {
+      next('/login')
+      return;
+    } else{
+      // 放行
+      next();
+    }
+  }
+})
 export default router

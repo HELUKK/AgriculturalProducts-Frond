@@ -1,9 +1,9 @@
 <template>
     <div class="common-layout">
-      <el-container>
+      <el-container class="ccc">
         <el-header class="head">
             <div class="title">
-            <el-icon size="30px" id="ic"><ShoppingCart /></el-icon>
+            <el-icon size="30px" id="ic" color="rgb(151, 231, 58)" ><ShoppingCart /></el-icon>
             <h2 id="h">农产品购物界面</h2>
         </div>
         <span class="search">
@@ -13,56 +13,98 @@
         </el-header>
         <!-- main -->
         <el-main class="main">
-            <template>
-            <div>
-               <el-config-provider :locale="locale">
-               <el-table mb-1 :data="[]" />
-               <el-pagination :total="100" />
-               </el-config-provider>
-            </div>
-           </template>
+          <!-- 分页 -->
+          <div class="example-pagination-block" >
+            <el-row >
+            <el-col
+              v-for="(o, index) in store.goods"
+              :key="o"
+              :span="4"
+              :offset="index > 0 ? 2 : 0"
+              class="col"
+            >
+            <el-card :body-style="{ padding: '20px', margin:'5px' }">
+            <img
+            src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+            class="image"
+            />
+            <div style="padding: 0px">
+            <span>{{ o.title + "￥:"+o.price }}</span>
+            <div class="bottom">
+            <time class="time">{{ o.createTime }}</time>
+            <el-button text class="button">加入购物车</el-button>
+          </div>
+        </div>
+        </el-card>
+         </el-col>
+         </el-row> 
+          <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.total"  />
+          </div>
+          <!-- 分页 -->
         </el-main>
       </el-container>
     </div>
   </template>
-  <script lang="ts" setup>
-import { ref } from 'vue'
 
+
+
+<script lang="ts" setup>
+import {  onMounted, ref, watch } from 'vue'
+import {useStore} from '@/stores/index';
   
-const language = ref('zh-cn')
-const locale = "zhCn"
-
-const toggle = () => {
-  language.value = language.value === 'zh-cn' ? 'en' : 'zh-cn'
-}
+const store = useStore();
+const page = ref(store.page)
+console.log(page);
+const currentDate = ref(new Date())
+watch(page,(newValue,oldValue)=>{
+       console.log(page)
+      store.loadGoods(newValue);
+})
+onMounted(()=>{
+  store.loadGoods(store.page)
+})
 </script>
-  <style scoped>
+<style scoped>
+.example-pagination-block + .example-pagination-block {
+  margin-top: 10px;
+}
+.col{
+    margin: 5px;
+}
+.col:hover{
+  width: 10px;
+}
+.bu{
+  position: absolute;
+  bottom: 8%;
+  left: 45%;
+}
+.example-pagination-block {
+  margin-bottom: 16px;
+}
+.ccc{
+  height: 100%;
+}
 .head{
-    border: 1px solid yellow;
+    border: 0px solid rgb(151, 231, 58);
+    margin: 0;
+    
 }
 .main{
-    border: 1px solid yellow;
-    padding: 0;
+    border: 0px solid red;
+    height: 100%;
 }
 .title{
     display: flex;
-}
-#ic{
     position: relative;
-    left:  1%;
-    top: 25.5%;
-}
-#h{
-    position: relative;
-    left:  2%;
-    top: 25%;
+    top: 15%;
 }
 .search{
    display: flex;
    height: 25px;
    position: absolute;
-   top: 10%;
-   left: 85%;
+   top: 11%;
+   left: 75%;
 }
 input{
    border-radius: 50px;
@@ -71,6 +113,36 @@ input{
     position: relative;
     left: 85%;
     top: 28%;
+}
+*{
+  margin: 0;
+  padding: 0;
+}
+.time {
+  font-size: 12px;
+  color: #999;
+}
+
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  padding: 0;
+  min-height: auto;
+}
+
+.image {
+  width: 100%;
+  display: block;
+}
+*{
+  margin: 0;
+  padding: 0;
 }
 </style>
   
