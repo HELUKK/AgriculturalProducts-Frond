@@ -19,29 +19,44 @@ const router = createRouter({
       children:[
         {
           name:"index",
-          path:"/index",
-          component:() => import("@/views/GoshopView.vue")
+          path:"index",
+          component:() => import("@/views/HomeView/HomepageView.vue")
         },
         {
-          name:"goshop",
-          path:"/goshop",
-          component:() => import("@/views/GoshopView.vue")
+          name:"source",
+          path:"source",
+          component:() => import("@/views/HomeView/sourceView.vue")
         },
         {
-          name:"goshop",
-          path:"/goshop",
-          component:() => import("@/views/GoshopView.vue")
+          name:"request",
+          path:"request",
+          component:() => import("@/views/HomeView/PurchaserequestView.vue")
         },
         {
-          name:"goshop",
-          path:"/goshop",
-          component:() => import("@/views/GoshopView.vue")
+          name:"knowledge",
+          path:"knowledge",
+          component:() => import("@/views/HomeView/KnowledgeView.vue")
         },
         
         {
+          name:"guidence",
+          path:"guidance",
+          component:() => import("@/views/HomeView/GuidanceView.vue")
+        },
+        {
           name:"goshop",
-          path:"/goshop",
-          component:() => import("@/views/GoshopView.vue")
+          path:"shoppingcart",
+          component:() => import("@/views/HomeView/ShoppingCartView.vue")
+        },
+        {
+          name:"guidence",
+          path:"guidance",
+          component:() => import("@/views/HomeView/GuidanceView.vue")
+        },
+        {
+          name:"financing",
+          path:"financing",
+          component:() => import("@/views/HomeView/Financing/FinancingView1.vue")
         },
       ]
     }
