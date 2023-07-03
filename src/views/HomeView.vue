@@ -1,10 +1,39 @@
 <template>
-    <div class="common-layout">
+
+
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <NavigationBar>
+            Header
+        </NavigationBar>
+       </el-header>
+      <el-container>
+        <el-aside >
+          <NavigationAside>
+
+          </NavigationAside>
+        </el-aside>
+        <el-main>Main</el-main>
+      </el-container>
+    </el-container>
+  </div>
+ <!--    <div class="common-layout">
       <el-container class="all"> 
-        <el-header class="head">Header</el-header>
+        <el-header class="head">
+          <el-icon size="50px" color="#fffffffd" class="ii"><Shop /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Watermelon /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Grape /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Orange /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Pear /></el-icon>
+          <el-icon size="40px" color="#fffffffd" class="cc"><Apple /></el-icon>
+          <h1 class="h">融销通</h1>
+          <h2 class="h2">.com</h2>
+          <el-button type="Default" class="zx" @click="logout" round>注销</el-button>
+        </el-header>
         <el-container>
           <el-aside width="200px">
-            <!-- aside -->
+            aside
             <el-row class="tac">
     <el-col :span="30" class="aside">
       <h5 class="mb-2">导航栏</h5>
@@ -39,78 +68,51 @@
           <el-icon><document /></el-icon>
           <span>个人信息管理</span>
         </el-menu-item>
+        <label @click="hello">
         <el-menu-item index="4" class="daoh">
-          <el-icon><setting /></el-icon>
-          <span>Navigator Four</span>
+          <el-icon><Orange /></el-icon>
+          <span >hello</span>
         </el-menu-item>
+      </label>
       </el-menu>
     </el-col>
   </el-row>
 </el-aside>
 
-          <!-- main -->
+          main
           <el-main class="main">
-             <RouterView></RouterView>
+             <RouterView id="mm"></RouterView>
           </el-main>
         </el-container>
       </el-container>
-    </div>
+    </div> -->
   </template>
 
 
 <script lang="ts" setup>
-import router from '@/router';
+import NavigationBar from '@/components/NavigationBar.vue';
+import NavigationAside from '@/components/NavigationAside.vue';
 
+/* import router from '@/router';
+
+
+import { useStore } from '@/stores/index';
+import {open} from '@/components/MessageView.vue'
+ const store = useStore(); 
+ const hello = () =>{
+     router.push('/hello')
+ }
  const goshop = () =>{
      router.push('/goshop')
      console.log("被调用了")
  }
+ const logout= () => {
 
-  
-
+   store.logout();
+   open("注销成功")
+ }
+ */
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style scoped>
-.aside{
-    width: 200px;
-}
-.tac{
-    border: 0px solid red;
-    background-color: rgb(59, 62, 65);
-    height: 853px;
-    margin: 0;
-}
-.all{
-    height: 100%;
-}
-.mb-2{
-  margin-left: 30%;
-  padding-top: 10%;
-  padding-bottom: 10%;
-  font-size: 20px;
-  color: rgb(243, 179, 84);
-  height: auto;
-}
-.main{
-    border: 1px solid red;
-}
-.daoh{
-    height: auto;
-}
-.head{
-    border: 1px solid red;
-}
+
 </style>
