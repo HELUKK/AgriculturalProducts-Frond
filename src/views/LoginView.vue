@@ -34,12 +34,14 @@
     </el-form>
   </div>
   </div>
+
     <!--隐藏表单-->
     <el-drawer
     v-model="drawer"
     title="注册表单"
     :direction="direction"
     :before-close="handleClose"
+    class="ddd"
   >
     <span>Hi, there!</span>
     <!--注册表单-->
@@ -113,6 +115,9 @@ const handleClose = (done: () => void) => {
 
   
   <style >
+.ddd{
+  background-color: rgba(255, 255, 255,0.7);
+  }
 .login{ 
     position: fixed;
     top: 10vh;
