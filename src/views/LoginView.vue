@@ -178,9 +178,10 @@ h2{
   margin: 0;
 }
 .a{
-  height: 97vh;
+  height: 100vh;
   width: 100vw;
    border: 0px solid red;
    background-image: url('../assert/back.jpg') ;
+   background-size:cover;
 }
 </style>
