@@ -1,5 +1,10 @@
-<template>
+<template >
+  <div class="a">
     <div class="login">
+      <div class="le">
+    <img id="im1" src="../assert/mai2.webp">
+     </div>
+   <div class="ri">
       <div class="head">
         <el-icon size="40px" color="rgb(151, 231, 58)" id="h"><Pear /></el-icon>
         <h2>登录界面</h2>
@@ -28,7 +33,7 @@
       </el-form-item>
     </el-form>
   </div>
-
+  </div>
     <!--隐藏表单-->
     <el-drawer
     v-model="drawer"
@@ -60,7 +65,7 @@
     </el-form-item>
   </el-form>
   </el-drawer>
-
+</div>
   </template>
   
   <script lang="ts" setup>
@@ -107,14 +112,17 @@ const handleClose = (done: () => void) => {
   </script>
 
   
-  <style>
+  <style >
 .login{ 
-    margin: 10% 10% 20% 35%;
-    width: 500px;
-    height: 40%;
+    position: fixed;
+    top: 10vh;
+    left: 45vh;
+    width: 750px;
+    height: 400px;
     padding-top: 0px;
-    border: 1px solid rgb(151, 231, 58);
-    background-color: rgb(255, 255, 255);
+    border: 0px solid rgb(151, 231, 58);
+    background-color: rgba(255, 255, 255,0.7);
+    border-radius: 10px;
 }
 #ff{
   display: flex;
@@ -142,5 +150,37 @@ const handleClose = (done: () => void) => {
 h2{
   margin: 0;
   margin-top: 1%;
+}
+.le{
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.ri{
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  position: fixed;
+  top: 13vh;
+  width: 35%;
+  height: 40%;
+}
+#im1{
+  width: 40vh;
+  height: 53vh;
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+}
+*{
+  padding: 0;
+  margin: 0;
+}
+.a{
+  height: 97vh;
+  width: 100vw;
+   border: 0px solid red;
+   background-image: url('../assert/back.jpg') ;
 }
 </style>
