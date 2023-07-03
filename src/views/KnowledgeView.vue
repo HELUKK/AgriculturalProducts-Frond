@@ -4,12 +4,8 @@
         <el-header class="head">
             <div class="title">
             <el-icon size="30px" id="ic" color="rgb(151, 231, 58)" ><ShoppingCart /></el-icon>
-            <h2 id="h">农产品购物界面</h2>
+            <h2 id="h">农业知识界面</h2>
         </div>
-        <span class="search">
-            <el-icon class="ss"><Search /></el-icon>
-            <input type="text" placeholder="搜索商品" />
-        </span>
         </el-header>
         <!-- main -->
         <el-main class="main">
@@ -17,28 +13,30 @@
           <div class="example-pagination-block" >
             <el-row >
             <el-col
-              v-for="(o, index) in store.goods"
+              v-for="(o, index) in store.knows"
               :key="o"
               :span="4"
               :offset="index > 0 ? 2 : 0"
               class="col"
             >
-            <el-card :body-style="{ padding: '0px', margin:'5px' }">
+            <el-card id="card" :body-style="{ padding: '0px', margin:'5px' }">
+              <div class="imgbox">
             <img
-            src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+            :src="o.picPath"
             class="image"
             />
+          </div>
             <div style="padding: 0px">
-            <span id="span">{{ o.title + "￥:"+o.price }}</span>
+            <span id="span">{{ o.title  }}</span>
             <div class="bottom">
             <!-- <time class="time">{{ o.createTime }}</time> -->
-            <el-button text class="button" >加入购物车</el-button>
+            <el-button text class="button" >详情</el-button>
           </div>
         </div>
         </el-card>
          </el-col>
          </el-row> 
-          <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.gtotal"  />
+          <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.ktotal"  />
           </div>
           <!-- 分页 -->
         </el-main>
@@ -57,19 +55,26 @@
   const currentDate = ref(new Date())
   watch(page,(newValue,oldValue)=>{
          console.log(page)
-        store.loadGoods(newValue);
+        store.loadKnow(newValue);
   })
   onMounted(()=>{
-    store.loadGoods(store.page)
+    store.loadKnow(1);
   })
   </script>
   <style scoped>
+  .imgbox{
+    width: 346px;
+	  height: 200px;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
   .example-pagination-block + .example-pagination-block {
     margin-top: 10px;
   }
   .col{
-      margin: 5px;
-      margin-right: 3vh;
+      margin: 3vh;
+      margin-right: 0vh;
   }
   .bu{
     position: fixed;
@@ -92,31 +97,14 @@
       height: 100%;
   }
   #span{
-    white-space: nowrap;
-              /* 2.溢出的部分隐藏起来 */
-              overflow: hidden;
-              /* 3.文字溢出的时候用省略号来显示 */
-              text-overflow: ellipsis;
+             white-space: nowrap;
+             text-overflow: ellipsis; /* 溢出显示省略号 */
+             overflow: hidden; /* 溢出隐藏 */
   }
   .title{
       display: flex;
       position: relative;
       top: 15%;
-  }
-  .search{
-     display: flex;
-     height: 25px;
-     position: absolute;
-     top: 14vh;
-     left: 155vh;
-  }
-  input{
-     border-radius: 50px;
-  }
-  .ss{
-      position: relative;
-      left: 85%;
-      top: 28%;
   }
   *{
     margin: 0;
@@ -143,5 +131,12 @@
   .image {
     width: 100%;
     display: block;
+  }
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit:fill;
+    padding: 0;
+    margin: 0;
   }
   </style>

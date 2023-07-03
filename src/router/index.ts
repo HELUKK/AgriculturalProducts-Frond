@@ -36,7 +36,7 @@ const router = createRouter({
         {
           name:"knowledge",
           path:"knowledge",
-          component:() => import("@/views/HomeView/KnowledgeView.vue")
+          component:() => import("@/views/KnowledgeView.vue")
         },
         
         {

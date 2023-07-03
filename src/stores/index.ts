@@ -27,6 +27,7 @@ export  const useStore = defineStore('useStore', {
              data:1,
              url:'knowledge/'+page
           })
+          alert('查询完成')
           this.knows = resp.data.data.list;
           this.ktotal = resp.data.data.total;
 

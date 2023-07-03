@@ -61,7 +61,7 @@ watch(page,(newValue,oldValue)=>{
        store.loadGoods(newValue);
 })
 onMounted(()=>{
-  store.loadGoods(store.page)
+  store.loadGoods(1)
 })
 </script>
 <style scoped>
