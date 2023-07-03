@@ -1,5 +1,26 @@
 <template>
-    <div class="common-layout">
+
+
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <NavigationBar>
+            Header
+        </NavigationBar>
+       </el-header>
+      <el-container>
+        <el-aside >
+          <NavigationAside>
+
+          </NavigationAside>
+        </el-aside>
+        <el-main>
+          <router-view/>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
+ <!--    <div class="common-layout">
       <el-container class="all"> 
         <el-header class="head">
           <el-icon size="50px" color="#fffffffd" class="ii"><Shop /></el-icon>
@@ -14,7 +35,7 @@
         </el-header>
         <el-container>
           <el-aside width="200px">
-            <!-- aside -->
+            aside
             <el-row class="tac">
     <el-col :span="30" class="aside">
       <h5 class="mb-2">导航栏</h5>
@@ -68,18 +89,23 @@
   </el-row>
 </el-aside>
 
-          <!-- main -->
+          main
           <el-main class="main">
              <RouterView id="mm"></RouterView>
           </el-main>
         </el-container>
       </el-container>
-    </div>
+    </div> -->
   </template>
 
 
 <script lang="ts" setup>
-import router from '@/router';
+import NavigationBar from '@/components/NavigationBar.vue';
+import NavigationAside from '@/components/NavigationAside.vue';
+
+/* import router from '@/router';
+
+
 import { useStore } from '@/stores/index';
 import {open} from '@/components/MessageView.vue'
  const store = useStore(); 
@@ -95,95 +121,8 @@ import {open} from '@/components/MessageView.vue'
    store.logout();
    open("注销成功")
  }
-  const car = ()=>{
-      //
-  }
-  const qk = () => {
-     
-  }
+ */
 </script>
 <style scoped>
-.zx{
-  margin: 0;
- position: absolute;
- right: 5%;
- top: 3%;
-}
-#mm{
-  height: 100%;
-}
-.aside{
-    width: 200px;
-}
-.tac{
-    border: 0px solid red;
-    background-color: rgb(59, 62, 65);
-    height: 853px;
-    margin: 0;
-}
-.all{
-    height: 100vh;
-    width: 100vw;
-}
-.mb-2{
-  margin: 0;
-  padding: 20px;
-  font-size: 20px;
-  color: rgb(243, 179, 84);
-  position: relative;
-  left: 20%;
-}
-.main{
-    border: 1px solid rgb(59, 62, 65);
-}
-.head{
-    border: 0px solid rgb(14, 0, 0);
-    background-color: rgb(59, 62, 65);
-    margin: 0;
-    padding: 0;
-    height: 10vh;
-}
-.h{
-   	width: 33%;
-    line-height: 85px;
-    color: #fffffffd;
-    text-shadow: 0 0 5px #0a0600; /* 利用文字阴影 */
-    font-size: 46px;
-    font-family: 'yjsz'; /* 这是重点！！！ */
-    text-align: right;
-    margin: 0;
-    padding: 0;
-    display: inline;
-    position: absolute;
-    top: 1px;
-    right: 140vh;
-}
-.h2{
-  display: inline;
-  width: 33%;
-    line-height: 85px;
-    color: #fffffffd;/* 浅蓝色 */
-    text-shadow: 0 0 5px #08075a; /* 利用文字阴影 */
-    font-size: 46px;
-    font-family: 'yjsz'; /* 这是重点！！！ */
-    text-align: right;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 3px;
-    right: 125vh;
-}
-.ii{
-  position: absolute;
-    top: 3%;
-    right: 160vh;
-    margin: 0;
-    padding: 0;
-}
-.cc{
-  position: relative;
-  padding: 0;
-  margin: 0;
-  top: 30%;
-}
+
 </style>

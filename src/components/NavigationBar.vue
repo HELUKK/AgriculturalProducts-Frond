@@ -6,7 +6,7 @@
       :ellipsis="false"
       @select="handleSelect"
     >
-      <el-menu-item index="#"><el-icon><School /></el-icon>毕设选导师系统</el-menu-item>
+      <el-menu-item index="#"><el-icon><School /></el-icon>融销通</el-menu-item>
       <div class="flex-grow" />
       <UserLogout/>
     </el-menu>
