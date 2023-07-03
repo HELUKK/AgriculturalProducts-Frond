@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
-import type { ResultVO, User,Good } from '@/dataource/Types';
+import type { Know,ResultVO, User,Good } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
 
@@ -12,28 +12,42 @@ export  const useStore = defineStore('useStore', {
         page:1,
         users:[] as User[],
         goods:[] as Good[],
-        total:0 as number,
+        gtotal:0 as number,
+        ktotal:0 as number,
         token:'',
-        flag:false
+        flag:false,
+        knows:[] as Know[] 
     }),
 
    actions:{
+    async loadKnow(page:number){
+        try {
+            const resp = await axios({
+             method:'get',
+             data:1,
+             url:'knowledge/'+page
+          })
+          this.knows = resp.data.data.list;
+          this.ktotal = resp.data.data.total;
+
+      } catch {        // 
+     }
+    },
     async loadGoods(page:number){
         
         try {
-            
-           const resp = await axios({
+              const resp = await axios({
                method:'get',
                data:1,
                url:'order/All/'+page
             })
             this.goods = resp.data.data.list;
-            this.total = resp.data.data.total;
+            this.gtotal = resp.data.data.total;
 
         } catch {        // 
     }
     console.log(this.goods[0].createTime)
-    console.log(this.total)
+    console.log(this.gtotal)
     },
     logout(){
        this.token = ''

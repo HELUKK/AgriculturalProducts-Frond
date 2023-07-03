@@ -25,3 +25,12 @@ export interface Good {
     "updateTime": string,
     "address": string
 }
+export interface Know{
+    "knowledgeId": number,
+        "title": string,
+        "content": "草莓",
+        "picPath": string,
+        "ownName": string,
+        "createTime": string,
+        "updateTime": string
+}
