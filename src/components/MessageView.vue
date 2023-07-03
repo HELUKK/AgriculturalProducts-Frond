@@ -2,16 +2,25 @@
  import { ElMessage,ElMessageBox } from 'element-plus'
  import type { Action } from 'element-plus'
  export  const open = (message:string) => {
-  ElMessageBox.alert(message, '提示', {
-    // if you want to disable its autofocus
-    // autofocus: false,
-    confirmButtonText: 'OK',
-    callback: (action: Action) => {
+  ElMessageBox.confirm(message,
+    '提示',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'success',
+    }
+  )
+    .then(() => {
+       ElMessage({
+        type: 'success',
+        message: `操作成功`,
+      })
+    })
+    .catch(() => {
       ElMessage({
         type: 'info',
-        message: `action: ${action}`,
+        message: '取消退出',
       })
-    },
-  })
+    })
 }
 </script>

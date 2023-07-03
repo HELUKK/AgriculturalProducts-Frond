@@ -1,13 +1,15 @@
 <template>
      <el-button  style="text-align: center;" size="large" @click="open">登出</el-button>
 </template>
+
+
 <script lang="ts" setup>
 import router from '@/router';
 import { getCurrentInstance } from 'vue'
 import { ElMessageBox,ElMessage} from 'element-plus'
-
+import {useStore} from '@/stores/index'
 const { appContext } = getCurrentInstance()!
-
+const store = useStore();
 const open = () => {
   ElMessageBox.confirm(
     '你即将登出系统，继续操作?',
@@ -19,7 +21,7 @@ const open = () => {
     }
   )
     .then(() => {
-      router.push("/login")
+      store.logout();
        ElMessage({
         type: 'success',
         message: `退出成功`,
