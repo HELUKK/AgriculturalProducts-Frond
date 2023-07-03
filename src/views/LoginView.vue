@@ -4,6 +4,7 @@
         <el-icon size="40px" color="rgb(151, 231, 58)" id="h"><Pear /></el-icon>
         <h2>登录界面</h2>
     </div>
+    
     <el-form
       ref="account"
       :model="store.user"
@@ -26,7 +27,7 @@
         <el-button type="success"  @click="regit">注册</el-button>
       </el-form-item>
     </el-form>
-
+  </div>
 
     <!--隐藏表单-->
     <el-drawer
@@ -60,15 +61,12 @@
   </el-form>
   </el-drawer>
 
-
-
-</div>
   </template>
   
   <script lang="ts" setup>
   import { reactive, ref } from 'vue'
   import { useStore } from '@/stores/index'
-  import { ElMessage,ElMessageBox } from "element-plus"
+  import  { ElMessage,ElMessageBox } from "element-plus"
   import  {USER,ADMIN} from '@/dataource/UserType'
 
   const usertype = {
