@@ -113,8 +113,8 @@ import {open} from '@/components/MessageView.vue'
 }
 .mb-2{
   margin-left: 30%;
-  padding-top: 10%;
-  padding-bottom: 10%;
+  padding-top: 2%;
+  padding-bottom: 2%;
   font-size: 20px;
   color: rgb(243, 179, 84);
   height: auto;
@@ -141,7 +141,7 @@ import {open} from '@/components/MessageView.vue'
     display: inline;
     position: absolute;
     top: 1px;
-    right: 80%;
+    right: 140vh;
 }
 .h2{
   display: inline;
@@ -156,12 +156,12 @@ import {open} from '@/components/MessageView.vue'
     padding: 0;
     position: absolute;
     top: 3px;
-    right: 74%;
+    right: 125vh;
 }
 .ii{
   position: absolute;
-    top: 2%;
-    right: 87%;
+    top: 3%;
+    right: 160vh;
     margin: 0;
     padding: 0;
 }

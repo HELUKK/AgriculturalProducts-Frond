@@ -23,15 +23,15 @@
               :offset="index > 0 ? 2 : 0"
               class="col"
             >
-            <el-card :body-style="{ padding: '20px', margin:'5px' }">
+            <el-card :body-style="{ padding: '0px', margin:'5px' }">
             <img
             src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
             class="image"
             />
             <div style="padding: 0px">
-            <span>{{ o.title + "￥:"+o.price }}</span>
+            <span id="span">{{ o.title + "￥:"+o.price }}</span>
             <div class="bottom">
-            <time class="time">{{ o.createTime }}</time>
+            <!-- <time class="time">{{ o.createTime }}</time> -->
             <el-button text class="button">加入购物车</el-button>
           </div>
         </div>
@@ -70,10 +70,11 @@ onMounted(()=>{
 }
 .col{
     margin: 5px;
+    margin-right: 3vh;
 }
 .bu{
-  position: absolute;
-  bottom: 8%;
+  position: fixed;
+  bottom: 2vh;
   left: 45%;
 }
 .example-pagination-block {
@@ -91,6 +92,13 @@ onMounted(()=>{
     border: 0px solid red;
     height: 100%;
 }
+#span{
+  white-space: nowrap;
+            /* 2.溢出的部分隐藏起来 */
+            overflow: hidden;
+            /* 3.文字溢出的时候用省略号来显示 */
+            text-overflow: ellipsis;
+}
 .title{
     display: flex;
     position: relative;
@@ -100,8 +108,8 @@ onMounted(()=>{
    display: flex;
    height: 25px;
    position: absolute;
-   top: 11%;
-   left: 75%;
+   top: 14vh;
+   left: 155vh;
 }
 input{
    border-radius: 50px;
@@ -136,10 +144,6 @@ input{
 .image {
   width: 100%;
   display: block;
-}
-*{
-  margin: 0;
-  padding: 0;
 }
 </style>
   
