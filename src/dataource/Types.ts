@@ -1,6 +1,7 @@
 export interface User {
     nickName: string
     password: String
+    userName?:string
     role?: string
     name?: string
 }
@@ -23,4 +24,13 @@ export interface Good {
     "createTime": string,
     "updateTime": string,
     "address": string
+}
+export interface Know{
+    "knowledgeId": number,
+        "title": string,
+        "content": "草莓",
+        "picPath": string,
+        "ownName": string,
+        "createTime": string,
+        "updateTime": string
 }

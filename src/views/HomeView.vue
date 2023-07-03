@@ -49,7 +49,7 @@
         <el-sub-menu index="1" class="daoh">
           <template #title>
             <el-icon><Watermelon /></el-icon>
-            <span>购物栏</span>
+            <span @click="car">购物栏</span>
           </template>
           <el-menu-item index="1-1" @click="goshop">农购</el-menu-item>
           <el-menu-item index="1-2">购物车</el-menu-item>
@@ -65,6 +65,14 @@
           <el-menu-item-group title="管理">
             <el-menu-item index="2-2">订单管理</el-menu-item>
           </el-menu-item-group>
+        </el-sub-menu>
+        <el-sub-menu index="3" class="daoh">
+          <template #title>
+            <el-icon><document /></el-icon>
+          <span>农产知识区</span>
+          </template>
+          <el-menu-item index="3-1" @click="qk">知识查询</el-menu-item>
+          <el-menu-item index="3-2">知识管理</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="3" class="daoh">
           <el-icon><document /></el-icon>

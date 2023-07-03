@@ -63,5 +63,27 @@ const router = createRouter({
     }
   ]
 })
-
+//守卫
+router.beforeEach((to, from, next) => {
+  if (to.path == '/login') {
+    const token = window.sessionStorage.getItem("token")
+    if (!token) {
+      next()
+      return;
+    } else{
+      next('home');
+    }
+    next()
+  }
+  else{
+    const token = window.sessionStorage.getItem("token")
+    if (!token) {
+      next('/login')
+      return;
+    } else{
+      // 放行
+      next();
+    }
+  }
+})
 export default router
