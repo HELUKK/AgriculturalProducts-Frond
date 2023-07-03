@@ -18,10 +18,31 @@ const router = createRouter({
       component:() => import("@/views/HomeView.vue"),
       children:[
         {
+          name:"index",
+          path:"/index",
+          component:() => import("@/views/GoshopView.vue")
+        },
+        {
           name:"goshop",
           path:"/goshop",
           component:() => import("@/views/GoshopView.vue")
-        }
+        },
+        {
+          name:"goshop",
+          path:"/goshop",
+          component:() => import("@/views/GoshopView.vue")
+        },
+        {
+          name:"goshop",
+          path:"/goshop",
+          component:() => import("@/views/GoshopView.vue")
+        },
+        
+        {
+          name:"goshop",
+          path:"/goshop",
+          component:() => import("@/views/GoshopView.vue")
+        },
       ]
     }
   ]
