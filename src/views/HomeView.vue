@@ -28,7 +28,7 @@
         <el-sub-menu index="1" class="daoh">
           <template #title>
             <el-icon><Watermelon /></el-icon>
-            <span>购物栏</span>
+            <span @click="car">购物栏</span>
           </template>
           <el-menu-item index="1-1" @click="goshop">农购</el-menu-item>
           <el-menu-item index="1-2">购物车</el-menu-item>
@@ -44,6 +44,14 @@
           <el-menu-item-group title="管理">
             <el-menu-item index="2-2">订单管理</el-menu-item>
           </el-menu-item-group>
+        </el-sub-menu>
+        <el-sub-menu index="3" class="daoh">
+          <template #title>
+            <el-icon><document /></el-icon>
+          <span>农产知识区</span>
+          </template>
+          <el-menu-item index="3-1" @click="qk">知识查询</el-menu-item>
+          <el-menu-item index="3-2">知识管理</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="3" class="daoh">
           <el-icon><document /></el-icon>
@@ -87,7 +95,12 @@ import {open} from '@/components/MessageView.vue'
    store.logout();
    open("注销成功")
  }
-
+  const car = ()=>{
+      //
+  }
+  const qk = () => {
+     
+  }
 </script>
 <style scoped>
 .zx{
@@ -109,15 +122,16 @@ import {open} from '@/components/MessageView.vue'
     margin: 0;
 }
 .all{
-    height: 100%;
+    height: 100vh;
+    width: 100vw;
 }
 .mb-2{
-  margin-left: 30%;
-  padding-top: 2%;
-  padding-bottom: 2%;
+  margin: 0;
+  padding: 20px;
   font-size: 20px;
   color: rgb(243, 179, 84);
-  height: auto;
+  position: relative;
+  left: 20%;
 }
 .main{
     border: 1px solid rgb(59, 62, 65);
@@ -126,7 +140,8 @@ import {open} from '@/components/MessageView.vue'
     border: 0px solid rgb(14, 0, 0);
     background-color: rgb(59, 62, 65);
     margin: 0;
-  padding: 0;
+    padding: 0;
+    height: 10vh;
 }
 .h{
    	width: 33%;
