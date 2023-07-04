@@ -20,10 +20,12 @@ export  const useStore = defineStore('useStore', {
         flag:false,
         flag2:"",
         knows:[] as Know[],
-        detailid:0 
+        detailid:0 ,
     }),
 
    actions:{
+
+    //求购请求
     async loadNeeds(page:number){
         try {
             const resp = await axios({
@@ -37,6 +39,8 @@ export  const useStore = defineStore('useStore', {
       } catch {        // 
      }
     },
+
+    //购物车添加
     async addOrderToCart(id:number) {
         return axios({
             method: 'post',
@@ -50,11 +54,15 @@ export  const useStore = defineStore('useStore', {
          this.detailid = id;
          router.push('/detail')
      },
+
+     //详细信息
      detail(id:number){
         this.flag2="good"
          this.detailid = id;
          router.push('/detail')
      },
+
+     //农业知识
     async loadKnow(page:number){
         try {
             const resp = await axios({
@@ -68,6 +76,8 @@ export  const useStore = defineStore('useStore', {
       } catch {        // 
      }
     },
+
+    //读取商品
     async loadGoods(page:number){
         
         try {
@@ -84,11 +94,15 @@ export  const useStore = defineStore('useStore', {
     console.log(this.goods[0].createTime)
     console.log(this.gtotal)
     },
+
+    //登出
     logout(){
        this.token = ''
        window.sessionStorage.removeItem("token")
        router.push('/login')
     },
+
+    //登录
     async login() {
         try {
             console.log("login请求前");
@@ -115,22 +129,24 @@ export  const useStore = defineStore('useStore', {
         console.log(window.sessionStorage.getItem('token'))
         router.push('/home')
     },
-async register() {
-        try {
-            console.log("请求前");
-             console.log(this.user);
-           const resp = await axios({
-                method:'post',
-                data:this.user,
-                url:'user/register'
-            })
-            console.log(resp.data.message)
-            this.message = resp.data.message;
-            open(this.message)
-        } catch {
-            // 
+
+    //注册
+    async register() {
+            try {
+                console.log("请求前");
+                console.log(this.user);
+            const resp = await axios({
+                    method:'post',
+                    data:this.user,
+                    url:'user/register'
+                })
+                console.log(resp.data.message)
+                this.message = resp.data.message;
+                open(this.message)
+            } catch {
+                // 
+            }
         }
-    }
 
    }
 
