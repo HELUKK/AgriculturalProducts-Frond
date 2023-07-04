@@ -31,8 +31,7 @@
             <div style="padding: 0px">
             <span id="span">{{ o.title + "￥:"+o.price }}</span>
             <div class="bottom">
-            <!-- <time class="time">{{ o.createTime }}</time> -->
-            <el-button text class="button" >加入购物车</el-button>
+            <el-button text class="button"  @click="detail(o.orderId)">详情</el-button>
           </div>
         </div>
         </el-card>
@@ -51,8 +50,13 @@
 <script lang="ts" setup>
 import {  onMounted, ref, watch } from 'vue'
 import {useStore} from '@/stores/index';
+import router from '@/router';
   
 const store = useStore();
+const detail = (id:number)=>{
+  console.log("detai2调用")
+     store.detail(id);
+}
 const page = ref(store.page)
 console.log(page);
 const currentDate = ref(new Date())

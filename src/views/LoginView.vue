@@ -2,7 +2,7 @@
   <div class="a">
     <div class="login">
       <div class="le">
-    <img id="im1" src="../assert/mai2.webp">
+    <img id="im1" src="../assets/mai2.webp">
      </div>
    <div class="ri">
       <div class="head">
@@ -186,7 +186,7 @@ h2{
   height: 100vh;
   width: 100vw;
    border: 0px solid red;
-   background-image: url('../assert/back.jpg') ;
+   background-image: url('../assets/back.jpg') ;
    background-size:cover;
 }
 </style>

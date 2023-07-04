@@ -16,10 +16,26 @@ export  const useStore = defineStore('useStore', {
         ktotal:0 as number,
         token:'',
         flag:false,
-        knows:[] as Know[] 
+        flag2:"",
+        knows:[] as Know[],
+        detailid:0 
     }),
 
    actions:{
+    async addOrderToCart(id:number) {
+        return axios({
+            method: 'post',
+            url: 'cart/add/' + id
+        }).catch((err) => {
+            alert("添加失败,请先登录");
+          });
+    },
+     detail(id:number){
+        this.flag2="good"
+        console.log("detail1调用")
+         this.detailid = id;
+         router.push('/detail')
+     },
     async loadKnow(page:number){
         try {
             const resp = await axios({

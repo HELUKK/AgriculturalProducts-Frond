@@ -18,7 +18,7 @@ export interface Good {
     "content": string,
     "orderStatu": number,
     "type": string,
-    "picture":any ,
+    "picture":string ,
     "ownName": string,
     "cooperationName": string,
     "createTime": string,
