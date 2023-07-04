@@ -49,19 +49,13 @@
                  <el-sub-menu index="1">
                     <template #title>
                       <el-icon><location /></el-icon>
-                      <span>融资申请</span>
+                      <span>设置</span>
                     </template>
-                    <el-menu-item-group title="标题1">
-                      <el-menu-item index="/home/financing">item one</el-menu-item>
-                      <el-menu-item index="1-2">item two</el-menu-item>
-                    </el-menu-item-group>
-                    <el-menu-item-group title="标题2">
-                      <el-menu-item index="1-3">item three</el-menu-item>
-                    </el-menu-item-group>
-                    <el-sub-menu index="1-4">
-                      <template #title>item four</template>
-                      <el-menu-item index="1-4-1">item one</el-menu-item>
-                    </el-sub-menu>
+                   
+                      <el-menu-item index="/home/financing">个人中心</el-menu-item>
+                      <el-menu-item index="1-2">关于我们</el-menu-item>
+                
+                    
                 </el-sub-menu>
             </el-menu>
       </el-col>

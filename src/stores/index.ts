@@ -30,7 +30,6 @@ export  const useStore = defineStore('useStore', {
              method:'get',
              url:'order/goods/'+page
           })
-          alert('执行')
           this.sgoods = resp.data.data.list;
           this.stotal = resp.data.data.total;
 
