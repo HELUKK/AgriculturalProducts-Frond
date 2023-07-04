@@ -12,8 +12,10 @@ export  const useStore = defineStore('useStore', {
         page:1,
         users:[] as User[],
         goods:[] as Good[],
+        sgoods:[] as Good[],
         gtotal:0 as number,
         ktotal:0 as number,
+        stotal:0 as number,
         token:'',
         flag:false,
         flag2:"",
@@ -22,6 +24,19 @@ export  const useStore = defineStore('useStore', {
     }),
 
    actions:{
+    async loadNeeds(page:number){
+        try {
+            const resp = await axios({
+             method:'get',
+             url:'order/goods/'+page
+          })
+          alert('执行')
+          this.sgoods = resp.data.data.list;
+          this.stotal = resp.data.data.total;
+
+      } catch {        // 
+     }
+    },
     async addOrderToCart(id:number) {
         return axios({
             method: 'post',
@@ -30,9 +45,13 @@ export  const useStore = defineStore('useStore', {
             alert("添加失败,请先登录");
           });
     },
+    detail2(id:number){
+        this.flag2="need"
+         this.detailid = id;
+         router.push('/detail')
+     },
      detail(id:number){
         this.flag2="good"
-        console.log("detail1调用")
          this.detailid = id;
          router.push('/detail')
      },
@@ -43,7 +62,6 @@ export  const useStore = defineStore('useStore', {
              data:1,
              url:'knowledge/'+page
           })
-          alert('查询完成')
           this.knows = resp.data.data.list;
           this.ktotal = resp.data.data.total;
 

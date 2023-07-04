@@ -1,6 +1,6 @@
 <template>
     <div class="details-box">
-      <img v-if="data.picture" :src="data.picture" alt="" />
+      <img v-if="data?.picture" :src="data.picture" alt="" />
       <img v-else src="../assets/img/wutu.gif" alt="" style="border:1px solid #f2f2f2;"/>
       <div class="info">
         <h4 class="title">{{ data.title }}</h4>
@@ -25,7 +25,7 @@
                 <div class="item-sales">卖家手机号码：<span class="sales-text">1582553382</span></div>
                 <div class="item-sales">更新时间：<span class="sales-text">{{data.createTime}}</span></div>
               </div>
-              <el-button type="danger" default="reference"  v-show="store.flag2 == 'need'">联系买家</el-button>
+              <el-button type="danger" v-if="store.flag2 == 'need'" >加入购物车</el-button>
             </el-popover>
           </div>
         </div>
@@ -35,12 +35,17 @@
 
 <script setup lang="ts">
 import {useStore} from '@/stores/index'
-import { onMounted } from 'vue';
 import type {Good} from '@/dataource/Types'
-import { da } from 'element-plus/es/locale';
  const store = useStore();
-
- const data = store.goods.find(g=>g.orderId==store.detailid) as Good
+ let data = {} as Good
+  if(store.flag2 == "good"){
+  data = store.goods.find(g=>g.orderId==store.detailid) as Good
+  console.log("good调用"+data.ownName)
+ }
+  else if(store.flag2 == "need"){
+   data = store.sgoods.find(g=>g.orderId == store.detailid) as Good
+     console.log("need调用"+data.ownName)
+  }
 
  const addcar = ()=> {
      store. addOrderToCart(data.orderId)

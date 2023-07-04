@@ -4,7 +4,7 @@
         <el-header class="head">
             <div class="title">
             <el-icon size="30px" id="ic" color="rgb(151, 231, 58)" ><ShoppingCart /></el-icon>
-            <h2 id="h">农业知识界面</h2>
+            <h2 id="h">货源界面</h2>
         </div>
         </el-header>
         <!-- main -->
@@ -13,7 +13,7 @@
           <div class="example-pagination-block" >
             <el-row >
             <el-col
-              v-for="(o, index) in store.knows"
+              v-for="(o, index) in store.sgoods"
               :key="o"
               :span="4"
               :offset="index > 0 ? 2 : 0"
@@ -22,15 +22,15 @@
             <el-card id="card" :body-style="{ padding: '0px', margin:'5px' }">
               <div class="imgbox">
             <img
-            :src="o.picPath"
+            :src="o.picture"
             class="image"
             />
           </div>
-            <div style="padding: 0px">
+            <div style="padding: 10px">
+             <div >[{{ o.ownName }}]</div>
             <span id="span">{{ o.title  }}</span>
             <div class="bottom">
-            <!-- <time class="time">{{ o.createTime }}</time> -->
-            <el-button text class="button" >详情</el-button>
+            <el-button text class="button" @click="detail(o.orderId)" >详情</el-button>
           </div>
         </div>
         </el-card>
@@ -51,12 +51,15 @@
     
   const store = useStore();
   const page = ref(store.page)
+  const detail = (id:number)=>{
+        store.detail2(id);
+  }
   const currentDate = ref(new Date())
   watch(page,(newValue,oldValue)=>{
-        store.loadKnow(newValue);
+        store.loadNeeds(newValue);
   })
   onMounted(()=>{
-    store.loadKnow(1);
+    store.loadNeeds(1);
   })
   </script>
   <style scoped>
