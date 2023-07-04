@@ -45,16 +45,15 @@
                     <span>购物车</span>
                  </el-menu-item>
 
-                 <!-- 融资申请  -->
+                 <!-- 用户详情页  -->
                  <el-sub-menu index="1">
                     <template #title>
                       <el-icon><location /></el-icon>
                       <span>设置</span>
                     </template>
                    
-                      <el-menu-item index="/home/financing">个人中心</el-menu-item>
+                      <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
                       <el-menu-item index="1-2">关于我们</el-menu-item>
-                
                     
                 </el-sub-menu>
             </el-menu>
