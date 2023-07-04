@@ -24,10 +24,12 @@
               class="col"
             >
             <el-card :body-style="{ padding: '0px', margin:'5px' }">
+              <div class="imgbox">
             <img
             :src="o.picture"
             class="image"
             />
+          </div>
             <div style="padding: 0px">
             <span id="span">{{ o.title + "￥:"+o.price }}</span>
             <div class="bottom">
@@ -92,6 +94,13 @@ onMounted(()=>{
     margin: 0;
     
 }
+.imgbox{
+    width: 346px;
+	  height: 200px;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
 .main{
     border: 0px solid red;
     height: 100%;
@@ -149,5 +158,12 @@ input{
   width: 100%;
   display: block;
 }
+img{
+    width: 100%;
+    height: 100%;
+    object-fit:fill;
+    padding: 0;
+    margin: 0;
+  }
 </style>
   
