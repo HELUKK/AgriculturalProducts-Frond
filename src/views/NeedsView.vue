@@ -36,7 +36,7 @@
         </el-card>
          </el-col>
          </el-row> 
-          <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.ktotal"  />
+          <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.stotal"  />
           </div>
           <!-- 分页 -->
         </el-main>
