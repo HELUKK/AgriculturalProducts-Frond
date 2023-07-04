@@ -18,15 +18,19 @@
           </div>
           <div class="btn-content">
             <el-button type="danger" v-if="store.flag2 == 'good'" >加入购物车</el-button>
-            <el-popover placement="right" width="320" trigger="hover">
+            <el-tooltip :visible="visible">
+             <template #content>
               <div>
-                <div class="item-sales">卖家姓名：<span class="sales-text">{{data.ownName}}</span></div>
-                <div class="item-sales">卖家地址：<span class="sales-text">{{data.address}}</span></div>
-                <div class="item-sales">卖家手机号码：<span class="sales-text">1582553382</span></div>
-                <div class="item-sales">更新时间：<span class="sales-text">{{data.createTime}}</span></div>
-              </div>
-              <el-button type="danger" v-if="store.flag2 == 'need'" >加入购物车</el-button>
-            </el-popover>
+              <div class="item-sales">卖家姓名：<span class="sales-text">{{data.ownName}}</span></div>
+              <div class="item-sales">卖家地址：<span class="sales-text">{{data.address}}</span></div>
+              <div class="item-sales">卖家手机号码：<span class="sales-text">1582553382</span></div>
+              <div class="item-sales">更新时间：<span class="sales-text">{{data.createTime}}</span></div>
+            </div>
+            </template>
+         <el-button type="danger" v-if="store.flag2 == 'need'" @mouseenter="visible = true" @mouseleave="visible = false">
+      联系商家
+    </el-button>
+  </el-tooltip>
           </div>
         </div>
       </div>
@@ -36,6 +40,9 @@
 <script setup lang="ts">
 import {useStore} from '@/stores/index'
 import type {Good} from '@/dataource/Types'
+import { ref } from 'vue'
+
+const visible = ref(false)
  const store = useStore();
  let data = {} as Good
   if(store.flag2 == "good"){
