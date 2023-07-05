@@ -17,7 +17,7 @@
             <div class="operation-item"><img src="../assets/img/fill-in.png" class="operation-img" alt="" />评论</div>
           </div>
           <div class="btn-content">
-            <el-button type="danger" v-if="store.flag2 == 'good'" >加入购物车</el-button>
+            <el-button type="danger" v-if="store.flag2 == 'good'" @click="addCart" >加入购物车</el-button>
             <el-tooltip :visible="visible">
              <template #content>
               <div>
@@ -41,24 +41,35 @@
 import {useStore} from '@/stores/index'
 import type {Good} from '@/dataource/Types'
 import { ref } from 'vue'
+import { useCartStore } from '@/stores/cart';
+
+const cartStore = useCartStore()
 
 const visible = ref(false)
  const store = useStore();
+
  let data = {} as Good
+ 
   if(store.flag2 == "good"){
   data = store.goods.find(g=>g.orderId==store.detailid) as Good
-  console.log("good调用"+data.ownName)
  }
-  else if(store.flag2 == "need"){
+   else if(store.flag2 == "need"){
    data = store.sgoods.find(g=>g.orderId == store.detailid) as Good
      console.log("need调用"+data.ownName)
   }
-
- const addcar = ()=> {
-     store. addOrderToCart(data.orderId)
-    }
+  
+ const addCart = ()=> {
+     cartStore.addCart(data.orderId)
+ }
 
 </script>
+
+
+
+
+
+
+
 <style lang="less" scoped>
 .details-box {
   width: 1100px;

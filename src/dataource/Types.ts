@@ -20,6 +20,7 @@ export interface ResultVO {
     data?: any
 }
 export interface Good {
+    shoppingId?:number
     "orderId": number,
     "title": string,
     "price": number,
@@ -41,4 +42,15 @@ export interface Know{
         "ownName": string,
         "createTime": string,
         "updateTime": string
+}
+
+export interface cartInfo{
+    "content":string,
+    "count":number,
+    "orderId":number,
+    "ownName":string,
+    "picture":string,
+    "price":string,
+    "shoppingId":number,
+    "title":string,
 }

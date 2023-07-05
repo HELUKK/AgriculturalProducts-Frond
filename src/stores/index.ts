@@ -38,16 +38,11 @@ export  const useStore = defineStore('useStore', {
       } catch {        // 
      }
     },
-
-    //购物车添加
-    async addOrderToCart(id:number) {
-        return axios({
-            method: 'post',
-            url: 'cart/add/' + id
-        }).catch((err) => {
-            alert("添加失败,请先登录");
-          });
-    },
+    detail3(id:number){
+        this.flag2="car"
+         this.detailid = id;
+         router.push('/detail')
+     },
     detail2(id:number){
         this.flag2="need"
          this.detailid = id;

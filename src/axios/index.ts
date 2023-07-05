@@ -1,5 +1,6 @@
 import router from "@/router";
 import axios from "axios";
+
 axios.defaults.baseURL = 'http://127.0.0.1:8080/'
 
 // 添加请求拦截器
