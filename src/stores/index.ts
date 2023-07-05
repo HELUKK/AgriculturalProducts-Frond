@@ -48,6 +48,8 @@ export  const useStore = defineStore('useStore', {
             alert("添加失败,请先登录");
           });
     },
+
+    
     detail2(id:number){
         this.flag2="need"
          this.detailid = id;
@@ -60,6 +62,7 @@ export  const useStore = defineStore('useStore', {
          this.detailid = id;
          router.push('/detail')
      },
+
      kdetail(id:number){
         this.detailid = id;
         router.push('/kdetail')
