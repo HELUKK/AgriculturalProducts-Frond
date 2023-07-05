@@ -44,7 +44,6 @@ value: { knowledgeId: number; title: string; content: "草莓"; picPath: string;
         "createTime": string,
         "updateTime": string
 }
-<<<<<<< HEAD
 
 export interface cartInfo{
     "content":string,
@@ -55,7 +54,8 @@ export interface cartInfo{
     "price":string,
     "shoppingId":number,
     "title":string,
-=======
+}
+
 export interface Question{
         "id": number,
         "expertName": string,
@@ -66,5 +66,4 @@ export interface Question{
         "question": string,
         "answer": string,
         "status": number
->>>>>>> c007b11382aacb1713d6e06fca7bdce066106454
 }
