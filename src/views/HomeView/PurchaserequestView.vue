@@ -24,9 +24,13 @@
             :offset="index > 0 ? 2 : 0"
             class="col"
           >
+
+          
        </el-col>
        </el-row> 
-        <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.stotal"  />
+        <div >
+          <el-pagination  style="justify-content: center;" layout="prev, pager, next" v-model:current-page="page" :total="store.stotal"  />
+        </div>
         </div>
 </template>
 
@@ -128,5 +132,7 @@ store.loadNeeds(1)
       color: #666;
     }
   }
+  
+
 }
 </style>
