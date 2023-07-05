@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
-import type { Know,ResultVO, User,Good } from '@/dataource/Types';
+import type { Know,ResultVO, User,Good, Discuss } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
 
@@ -13,6 +13,7 @@ export  const useStore = defineStore('useStore', {
         users:[] as User[],
         goods:[] as Good[],
         sgoods:[] as Good[],
+        discuss:[] as Discuss[],
         gtotal:0 as number,
         ktotal:0 as number,
         stotal:0 as number,
@@ -88,6 +89,29 @@ export  const useStore = defineStore('useStore', {
      }
     },
 
+    async loadDis(id : number){
+        try {
+            const resp = await axios({
+                method:'get',
+                url:'knowledge/selectByKnowledge/'+id
+            })
+            this.discuss = resp.data.data
+            console.log(this.discuss);
+            
+        }catch{
+            console.error("x");
+            
+        }
+    },
+    //添加评论
+    async addDiscuss(id:number,content:string){
+        return axios({
+            method:'post',
+            url:'knowledge/addByKnowledge/'
+        }).catch((err)=>{
+            console.log("x");
+        })
+    },
     //读取商品
     async loadGoods(page:number){
         
