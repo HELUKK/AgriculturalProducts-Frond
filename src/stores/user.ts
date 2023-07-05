@@ -60,10 +60,8 @@ export  const useStore = defineStore('useStore', {
          this.detailid = id;
          router.push('/detail')
      },
-     kdetail(id:number){
-        this.detailid = id;
-        router.push('/kdetail')
-     },
+
+     //农业知识
     async loadKnow(page:number){
         try {
             const resp = await axios({

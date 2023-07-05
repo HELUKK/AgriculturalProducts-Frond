@@ -1,9 +1,17 @@
 export interface User {
-    nickName: string
-    password: String
-    userName?:string
-    role?: string
-    name?: string
+    userName?:String
+    password?: String
+    nickName?: String
+    phone?:String
+    identityNum?:String
+    address?:String
+    role?: String
+    createTime?:Date
+    updateTime?:Date
+    integral?:number
+    credit?:number
+    avatar?:String
+    realName?: String
 }
 
 export interface ResultVO {
