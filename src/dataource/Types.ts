@@ -26,9 +26,10 @@ export interface Good {
     "address": string
 }
 export interface Know{
+value: { knowledgeId: number; title: string; content: "草莓"; picPath: string; ownName: string; createTime: string; updateTime: string } | undefined
     "knowledgeId": number,
         "title": string,
-        "content": "草莓",
+        "content": string,
         "picPath": string,
         "ownName": string,
         "createTime": string,
