@@ -30,7 +30,7 @@
             <span id="span">{{ o.title  }}</span>
             <div class="bottom">
             <!-- <time class="time">{{ o.createTime }}</time> -->
-            <el-button text class="button" >详情</el-button>
+            <el-button text class="button" @click="kdetail(o.knowledgeId)">详情</el-button>
           </div>
         </div>
         </el-card>
@@ -58,6 +58,12 @@
   onMounted(()=>{
     store.loadKnow(1);
   })
+
+  const kdetail = (id:number) =>{
+    console.log("kdetail调用")
+    store.kdetail(id);
+
+  }
   </script>
   <style scoped>
   .imgbox{
