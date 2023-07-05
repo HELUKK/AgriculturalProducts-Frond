@@ -50,11 +50,6 @@ const router = createRouter({
         },
         
         {
-          name:"guidence",
-          path:"guidance",
-          component:() => import("@/views/HomeView/GuidanceView.vue")
-        },
-        {
           name:"goshop",
           path:"shoppingcart",
           component:() => import("@/views/HomeView/ShoppingCartView.vue")
@@ -62,7 +57,7 @@ const router = createRouter({
         {
           name:"guidence",
           path:"guidance",
-          component:() => import("@/views/HomeView/GuidanceView.vue")
+          component:() => import("@/views/GuidanceView.vue")
         },
         {
           name:"UserDetial",

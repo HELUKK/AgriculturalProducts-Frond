@@ -43,3 +43,14 @@ value: { knowledgeId: number; title: string; content: "草莓"; picPath: string;
         "createTime": string,
         "updateTime": string
 }
+export interface Question{
+        "id": number,
+        "expertName": string,
+        "questioner": string,
+        "phone": string,
+        "plantName": string,
+        "title": string,
+        "question": string,
+        "answer": string,
+        "status": number
+}
