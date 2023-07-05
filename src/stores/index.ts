@@ -77,16 +77,17 @@ export  const useStore = defineStore('useStore', {
           })
           this.sgoods = resp.data.data.list;
           this.stotal = resp.data.data.total;
+
       } catch {        // 
      }
     },
-<<<<<<< HEAD
+
     detail3(id:number){
         this.flag2="car"
          this.detailid = id;
          router.push('/detail')
      },
-=======
+
 
     //购物车添加
     async addOrderToCart(id:number) {
@@ -97,12 +98,8 @@ export  const useStore = defineStore('useStore', {
             alert("添加失败,请先登录");
           });
     },
-<<<<<<< HEAD
 
 
->>>>>>> f9a6e7da6414a247cf8b1e2dfeebdd6fff18e8db
-=======
->>>>>>> c007b11382aacb1713d6e06fca7bdce066106454
     detail2(id:number){
         this.flag2="need"
          this.detailid = id;
@@ -151,12 +148,14 @@ export  const useStore = defineStore('useStore', {
           })
           this.knows = resp.data.data.list;
           this.ktotal = resp.data.data.total;
+
       } catch {        // 
      }
     },
 
     //读取商品
     async loadGoods(page:number){
+        
         try {
               const resp = await axios({
                method:'get',
