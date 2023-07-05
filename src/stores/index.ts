@@ -30,7 +30,7 @@ export  const useStore = defineStore('useStore', {
         try {
             const resp = await axios({
              method:'get',
-             url:'order/goods/'+page
+             url:'order/needs/'+page
           })
           this.sgoods = resp.data.data.list;
           this.stotal = resp.data.data.total;
@@ -49,7 +49,7 @@ export  const useStore = defineStore('useStore', {
           });
     },
 
-    
+
     detail2(id:number){
         this.flag2="need"
          this.detailid = id;
@@ -66,8 +66,15 @@ export  const useStore = defineStore('useStore', {
      kdetail(id:number){
         this.detailid = id;
         router.push('/kdetail')
+     }, 
+
+     //求购需求的详细信息
+     todetail(id:number){
+        this.detailid = id;
+        router.push('/requestsdetail')
      },
-    async loadKnow(page:number){
+  
+     async loadKnow(page:number){
         try {
             const resp = await axios({
              method:'get',

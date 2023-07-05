@@ -49,9 +49,7 @@ watch(page,(newValue,oldValue)=>{
 })
 
   const todetail=(index:number,row:Good)=>{
-      //router.push('/home/request/')
-      console.log(index)
-      console.log(row)
+    store.todetail(row.orderId)
   }
 
 onMounted(()=>{
