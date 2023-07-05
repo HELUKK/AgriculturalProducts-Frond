@@ -2,7 +2,7 @@
     <div class="common-layout">
       <el-container class="ccc">
         <el-header class="head">
-            <div class="title">
+        <div class="title">
             <el-icon size="30px" id="ic" color="rgb(151, 231, 58)" ><ShoppingCart /></el-icon>
             <h2 id="h">农产品购物界面</h2>
         </div>

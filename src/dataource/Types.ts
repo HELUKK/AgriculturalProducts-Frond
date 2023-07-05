@@ -26,6 +26,7 @@ export interface ResultVO {
     data?: any
 }
 export interface Good {
+    shoppingId?:number
     "orderId": number,
     "title": string,
     "price": number,
@@ -48,4 +49,27 @@ value: { knowledgeId: number; title: string; content: "草莓"; picPath: string;
         "ownName": string,
         "createTime": string,
         "updateTime": string
+}
+
+export interface cartInfo{
+    "content":string,
+    "count":number,
+    "orderId":number,
+    "ownName":string,
+    "picture":string,
+    "price":string,
+    "shoppingId":number,
+    "title":string,
+}
+
+export interface Question{
+        "id": number,
+        "expertName": string,
+        "questioner": string,
+        "phone": string,
+        "plantName": string,
+        "title": string,
+        "question": string,
+        "answer": string,
+        "status": number
 }

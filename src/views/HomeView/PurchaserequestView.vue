@@ -5,7 +5,7 @@
   <el-table-column label="时间" prop="updateTime" />
   <el-table-column align="right">
     <template #header>
-      <el-input v-model="search" size="small" placeholder="Type to search" />
+      <el-input v-model="key" size="small" placeholder="请输入搜索内容" />
     </template>
     <template #default="scope">
 
@@ -47,10 +47,29 @@ const store=useStore()
 
 
 const page = ref(store.page)
-watch(page,(newValue,oldValue)=>{
+const key=ref('')
+
+watch([page,key],(newValue,oldValue)=>{
+     console.log(newValue)
+     const page1=page
+     //查询条件不为空--条件搜索
+    if(newValue[1].length!=0)
+    {
+      store.searchneeds(newValue[1],newValue[0])
+      console.log('查询'+newValue[0]+' '+newValue[1])
+    }
+    //查询条件为空--读取
+    else{
+      store.loadNeeds(newValue[0])
+    }
+
+    
+})
+
+/* watch(page,(newValue,oldValue)=>{
      console.log(page)
      store.loadNeeds(newValue);
-})
+}) */
 
   const todetail=(index:number,row:Good)=>{
     store.todetail(row.orderId)
