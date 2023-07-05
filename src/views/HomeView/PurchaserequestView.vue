@@ -5,7 +5,7 @@
   <el-table-column label="时间" prop="updateTime" />
   <el-table-column align="right">
     <template #header>
-      <el-input v-model="search" size="small" placeholder="Type to search" />
+      <el-input v-model="key" size="small" placeholder="请输入搜索内容" />
     </template>
     <template #default="scope">
 
@@ -24,9 +24,13 @@
             :offset="index > 0 ? 2 : 0"
             class="col"
           >
+
+          
        </el-col>
        </el-row> 
-        <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.stotal"  />
+        <div >
+          <el-pagination  style="justify-content: center;" layout="prev, pager, next" v-model:current-page="page" :total="store.stotal"  />
+        </div>
         </div>
 </template>
 
@@ -43,15 +47,32 @@ const store=useStore()
 
 
 const page = ref(store.page)
-watch(page,(newValue,oldValue)=>{
-     console.log(page)
-     store.loadNeeds(newValue);
+const key=ref('')
+
+watch([page,key],(newValue,oldValue)=>{
+     console.log(newValue)
+     const page1=page
+     //查询条件不为空--条件搜索
+    if(newValue[1].length!=0)
+    {
+      store.searchneeds(newValue[1],newValue[0])
+      console.log('查询'+newValue[0]+' '+newValue[1])
+    }
+    //查询条件为空--读取
+    else{
+      store.loadNeeds(newValue[0])
+    }
+
+    
 })
 
+/* watch(page,(newValue,oldValue)=>{
+     console.log(page)
+     store.loadNeeds(newValue);
+}) */
+
   const todetail=(index:number,row:Good)=>{
-      //router.push('/home/request/')
-      console.log(index)
-      console.log(row)
+    store.todetail(row.orderId)
   }
 
 onMounted(()=>{
@@ -60,86 +81,77 @@ store.loadNeeds(1)
 
 
 </script>
-<style scoped>
-.example-pagination-block + .example-pagination-block {
-  margin-top: 10px;
-}
-.col{
-    margin: 5px;
-    margin-right: 3vh;
-}
-.bu{
-  position: fixed;
-  bottom: 2vh;
-  left: 45%;
-}
-.example-pagination-block {
-  margin-bottom: 16px;
-}
-.ccc{
-  height: 100%;
-}
-.head{
-    border: 0px solid rgb(151, 231, 58);
-    margin: 0;
-    
-}
-.main{
-    border: 0px solid red;
-    height: 100%;
-}
-#span{
-  white-space: nowrap;
-            /* 2.溢出的部分隐藏起来 */
-            overflow: hidden;
-            /* 3.文字溢出的时候用省略号来显示 */
-            text-overflow: ellipsis;
-}
-.title{
-    display: flex;
-    position: relative;
-    top: 15%;
-}
-.search{
-   display: flex;
-   height: 25px;
-   position: absolute;
-   top: 14vh;
-   left: 155vh;
-}
-input{
-   border-radius: 50px;
-}
-.ss{
-    position: relative;
-    left: 85%;
-    top: 28%;
-}
-*{
-  margin: 0;
-  padding: 0;
-}
-.time {
-  font-size: 12px;
-  color: #999;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
+<style lang="less" scoped>
+.details-box {
+  left: 0%;
+  height: auto;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  flex-direction: column;
+  // align-items: center;
+  img {
+    width: 360px;
+    height: 300px;
+    margin: 50px auto 20px;
+    border-radius: 6px;
+  }
+  .title {
+    
+    font-weight: bold;
+    
+    max-height: 70px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .time {
+    margin-top: 5px;
+    color: #999;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .info {
+    width: 100%;
+    min-height: 300px;
+    border-radius: 6px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    .content {
+      min-height: 100px;
+      // border: 1px dashed #f2f2f2;
+      
+      padding: 5px 10px;
+      /*超出的部分隐藏*/
+      overflow: hidden;
+      /*文字用省略号替代超出的部分*/
+      text-overflow: ellipsis;
+      /*弹性伸缩盒子模型显示*/
+      display: -webkit-box;
+      /*限制在一个块元素显示文本的行数*/
+      -webkit-line-clamp: 4;
+      /*设置或检索伸缩盒对象的子元素排列方式*/
+      -webkit-box-orient: vertical;
+    }
+    .item-style{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+  }
+  .item-sales{
+    color: #333 !important;
+    
+    max-height: 30px;
+    .sales-text{
+      color: #666;
+    }
+  }
+  
 
-.button {
-  padding: 0;
-  min-height: auto;
-}
-
-.image {
-  width: 100%;
-  display: block;
 }
 </style>
-  
