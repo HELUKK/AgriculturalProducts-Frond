@@ -73,7 +73,7 @@ export  const useStore = defineStore('useStore', {
         try {
             const resp = await axios({
              method:'get',
-             url:'order/goods/'+page
+             url:'order/needs/'+page
           })
           this.sgoods = resp.data.data.list;
           this.stotal = resp.data.data.total;
@@ -90,7 +90,6 @@ export  const useStore = defineStore('useStore', {
             alert("添加失败,请先登录");
           });
     },
-    //
     detail2(id:number){
         this.flag2="need"
          this.detailid = id;
@@ -103,11 +102,34 @@ export  const useStore = defineStore('useStore', {
          this.detailid = id;
          router.push('/detail')
      },
+
      kdetail(id:number){
         this.detailid = id;
         router.push('/kdetail')
+     }, 
+
+     //求购需求的详细信息
+     async todetail(id:number){
+        this.detailid = id;
+        router.push('/requestsdetail')
      },
-    async loadKnow(page:number){
+
+     //求购页面搜索
+     async searchneeds(key:string,page:number){
+        try {
+            const resp = await axios({
+             method:'get',
+             data:1,
+             url:'order/selectNeedsByKeys/'+key+"/"+page
+          })
+          this.sgoods = resp.data.data.list;
+          this.message = resp.data.data.message;
+          console.log(this.message)
+      } catch {        // 
+     }
+     },
+  
+     async loadKnow(page:number){
         try {
             const resp = await axios({
              method:'get',

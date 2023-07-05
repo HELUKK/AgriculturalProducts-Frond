@@ -5,60 +5,41 @@
       <div class="info">
         <h4 class="title">{{ data.title }}</h4>
         <div class="content" :title="data.content">{{ data.content }}</div>
-        <span class="price">￥{{ data.price }}</span>
         <div class="time">
           <span style="margin-right:30px;">发布时间：{{ data.createTime}}</span>
           <span>最近修改时间：{{ data.updateTime}}</span>
         </div>
         <div class="item-style">
-          <div class="operation">
-            <div class="operation-item"><img src="../assets/img/good.png" class="operation-img" alt="" /> 点赞</div>
-            <div class="operation-item"><img src="../assets/img/no-star.png" class="operation-img" alt="" /> 收藏</div>
-            <div class="operation-item"><img src="../assets/img/fill-in.png" class="operation-img" alt="" />评论</div>
-          </div>
           <div class="btn-content">
-            <el-button type="danger" v-if="store.flag2 == 'good'" >加入购物车</el-button>
             <el-tooltip :visible="visible">
-              <template #content>
-                <div>
-                <div class="item-sales">卖家姓名：<span class="sales-text">{{data.ownName}}</span></div>
-                <div class="item-sales">卖家地址：<span class="sales-text">{{data.address}}</span></div>
-                <div class="item-sales">卖家手机号码：<span class="sales-text">1582553382</span></div>
-                <div class="item-sales">更新时间：<span class="sales-text">{{data.createTime}}</span></div>
-                </div>
-              </template>
-                <el-button type="danger" v-if="store.flag2 == 'need'" @mouseenter="visible = true" @mouseleave="visible = false">
-                    联系商家
-                </el-button>
-             </el-tooltip>
+             <template #content>
+              <div>
+              <div class="item-sales">卖家姓名：<span class="sales-text">{{data.ownName}}</span></div>
+              <div class="item-sales">卖家地址：<span class="sales-text">{{data.address}}</span></div>
+              <div class="item-sales">卖家手机号码：<span class="sales-text">1582553382</span></div>
+              <div class="item-sales">更新时间：<span class="sales-text">{{data.createTime}}</span></div>
+            </div>
+            </template>
+            <el-button type="danger" @click="visible=!visible">
+                    卖家信息
+            </el-button>
+         </el-tooltip>
           </div>
         </div>
       </div>
     </div>
-  </template>
-
+</template>
+  
 <script setup lang="ts">
-import {useStore} from '@/stores/index'
-import type {Good} from '@/dataource/Types'
-import { ref } from 'vue'
-
-const visible = ref(false)
- const store = useStore();
- let data = {} as Good
-  if(store.flag2 == "good"){
-  data = store.goods.find(g=>g.orderId==store.detailid) as Good
-  console.log("good调用"+data.ownName)
- }
-  else if(store.flag2 == "need"){
-   data = store.sgoods.find(g=>g.orderId == store.detailid) as Good
-     console.log("need调用"+data.ownName)
-  }
-
- const addcar = ()=> {
-     store. addOrderToCart(data.orderId)
-    }
-
+    import {useStore} from '@/stores/index'
+    import type { Good } from '@/dataource/Types';
+    import { ref } from 'vue'
+    const store = useStore()
+    const visible = ref(false)
+    let data = {} as Good
+    data = store.sgoods.find(g=>g.orderId == store.detailid) as Good
 </script>
+  
 <style lang="less" scoped>
 .details-box {
   width: 1100px;
