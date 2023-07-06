@@ -172,8 +172,8 @@ export  const useStore = defineStore('useStore', {
     async addDiscuss(id:number,content:string){
         return axios({
             method:'post',
-            url:'knowledge/addByKnowledge/'
-        }).catch((err)=>{
+            url:'knowledge/addByKnowledge/'+id+'/'+content
+        }).catch(()=>{
             console.log("x");
         })
     },

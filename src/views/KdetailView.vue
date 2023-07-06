@@ -19,7 +19,7 @@
   </div>
 
     <div style="margin-top:20px;display: flex;flex-direction: row;justify-content: flex-end">
-      <el-button type="success" @click="addCon">添加评论</el-button>
+      <el-button type="success" @click="addCon()">添加评论</el-button>
     </div>
     <div class="comment-container">
       <div class="comment-num">评论共{{store.discuss.length||0}}条</div>
@@ -36,24 +36,39 @@
 
 <script setup lang="ts">
 import { useStore } from '@/stores';
-import type { Know } from '@/dataource/Types';
-import { ref } from 'vue';
+import type { Discuss,  Know } from '@/dataource/Types';
+import { ref ,watch} from 'vue';
+import  { ElMessage,ElMessageBox } from "element-plus"
+import { storeToRefs } from 'pinia';
+
 
 const store = useStore()
 const data = ref<Know>()
 const content = ref('')
+const discusslist = ref<Discuss[]>([])
 data.value = store.knows.find(g=>g.knowledgeId == store.detailid)
 console.log("knowid"+data.value?.knowledgeId)
 console.log("detailId"+store.detailid)
 store.loadDis(store.detailid)
+discusslist.value = store.discuss
 const addCon = () =>{
   if(content.value == ''){
-    console.log("内容不能为空");
+    ElMessageBox.confirm("内容不能为空");
   }
   else{
   store.addDiscuss(store.detailid,content.value)
+  ElMessageBox.confirm("评论发布成功");
   }
 }
+
+watch(store.discuss, (newVal, oldVal) => {
+  console.log(newVal);
+  console.log(oldVal)
+  store.loadDis(store.detailid)
+},{
+    immediate:true,
+    deep:true
+})
 content.value =''
 </script>
 <style scoped>
