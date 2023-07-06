@@ -3,11 +3,12 @@ import axios from '@/axios';
 import type { User,Userinfo } from '@/dataource/Types';
 export  const userStore = defineStore('userStore', {
     state: () => ({
-        user: {} as User
+        user: {} as User,
+        users:[] as User[]
     }),
 
    actions:{
-        //根据用户名查询用户所有属性
+        //登录后返回用户所有属性,用于用户信息展示页
         async loginSelectByUsername(){
             try {
                 // console.log("try");
@@ -36,7 +37,7 @@ export  const userStore = defineStore('userStore', {
               //将user存入sessionStorage
               window.sessionStorage.setItem("user",JSON.stringify(this.user))
           } catch {        // 
-            console.log('根据用户名查询用户所有属性失效');
+            console.log('登录后返回用户所有属性');
          }
             
         },
@@ -55,7 +56,62 @@ export  const userStore = defineStore('userStore', {
           console.log('根据用户名更新用户信息失效');
        }
           
-      }
+      },
+      //管理员:
+      //根据用户名查询用户信息
+      async selectByUserName(userName:String){
+        console.log('selectByUserName已运行');
+        try {
+            const resp = await axios({
+             method:'get',
+             url:'user/'+userName
+          })
+          console.log('selectByUserName已运行结束');
+      } catch {
+        console.log('管理员根据用户名查询用户信息selectByUserName失效');
+     }
+        
+    },
+    //根据用户名删除用户信息
+    async deleteUserByUsername(userName:String){
+      console.log('deleteUserByUsername已运行');
+      try {
+          const resp = await axios({
+           method:'delete',
+           url:'user/'+userName
+        })
+        console.log('deleteUserByUsername已运行结束');
+    } catch {
+      console.log('deleteUserByUsername失效');
+   }
+   },
+   //根据用户名更新用户信息
+   async  updateUserByUsername(user:User){
+    console.log('updateUserByUsername已运行');
+    try {
+        const resp = await axios({
+         method:'put',
+         data:user,
+         url:'user/'+user.userName
+      })
+      console.log('updateUserByUsername已运行结束');
+  } catch {
+    console.log('updateUserByUsername失效');
+ }
+ },
+ //分页查询所有用户
+ async  selectAllUserPage(pageNum:number){
+  console.log('selectAllUserPage已运行');
+  try {
+      const resp = await axios({
+       method:'put',
+       url:'search/'+pageNum
+    })
+    console.log('selectAllUserPage已运行结束');
+} catch {
+  console.log('selectAllUserPage失效');
+}
+},
    }
 
 })

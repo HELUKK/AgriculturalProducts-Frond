@@ -82,7 +82,27 @@ const router = createRouter({
         {
           name:"UserDetial",
           path:"UserDetial",
-          component:() => import("@/views/HomeView/UserDetialView.vue")
+          component:() => import("@/views/UserDetialView.vue")
+        },
+        {
+          name:"MyQuestion",
+          path:"MyQuestion",
+          component:() => import("@/views/MyQuestionView.vue")
+        },
+        {
+          name:"myappointmennt",
+          path:"MyAppointmennt",
+          component:() => import("@/views/MyAppointment.vue")
+        },
+        {
+          name:"MyKnowledge",
+          path:"MyKnowledge",
+          component:() => import("@/views/MyKnowledge.vue")
+        },
+        {
+          name:"UserManage",
+          path:"UserManage",
+          component:() => import("@/views/HomeView/UserManageView.vue")
         },
       ]
     }

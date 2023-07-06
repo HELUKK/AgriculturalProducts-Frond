@@ -5,12 +5,15 @@
         :src="userinfo.avatar"
       />
    <user-avatar ref="avatar" :cUserAvatar="userinfo.avatar"></user-avatar>
-   <el-form :model="userinfo" ref="ruleForm" label-width="80px" style="margin-top:40px">
+   <el-form :model="userinfo" ref="ruleForm" label-width="100px" style="margin-top:40px">
      <el-form-item label="昵称：" prop="nickName">
        <el-input v-model="userinfo.nickName" style="width:300px"></el-input>
      </el-form-item>
+     <el-form-item label="真实姓名：" prop="realName">
+       <el-input v-model="userinfo.realName" style="width:300px"></el-input>
+     </el-form-item>
      <el-form-item label="账号:" prop="userName">
-       <el-input v-model="userinfo.userName" style="width:300px"></el-input>
+       <el-input v-model="userinfo.userName" style="width:300px" :readonly="true"></el-input>
      </el-form-item>
      <el-form-item label="手机号：" prop="phone">
        <el-input v-model="userinfo.phone" style="width:300px"></el-input>
@@ -44,7 +47,8 @@
     phone:'',
     identityNum:'',
     address:'',
-    userName:''
+    userName:'',
+    realName:''
     }
     storedData = JSON.stringify(user)
     console.log('user不存在');
@@ -56,7 +60,8 @@
     phone:user.phone,
     identityNum:user.identityNum,
     address:user.address,
-    userName:user.userName
+    userName:user.userName,
+    realName:user.realName
    })
    
    const updateInfo = async()=>{
