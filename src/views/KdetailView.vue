@@ -61,14 +61,14 @@ const addCon = () =>{
   }
 }
 
-watch(store.discuss, (newVal, oldVal) => {
-  console.log(newVal);
-  console.log(oldVal)
-  store.loadDis(store.detailid)
-},{
-    immediate:true,
-    deep:true
-})
+// watch(store.discuss, (newVal, oldVal) => {
+//   console.log(newVal.values)
+//   console.log(oldVal.values)
+//   store.loadDis(store.detailid)
+// },{
+//     immediate:true,
+//     deep:true
+// })
 content.value =''
 </script>
 <style scoped>
