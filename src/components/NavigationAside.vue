@@ -51,8 +51,19 @@
                       <el-icon><location /></el-icon>
                       <span>设置</span>
                     </template>
-                   
                       <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
+
+                          <el-sub-menu index="2">
+                            <template #title>
+                              <span>专家管理</span>
+                            </template>
+
+                            <el-menu-item index="/home/MyQuestion">我的问答</el-menu-item>
+                            <el-menu-item index="/home/myappointmennt">我的预约</el-menu-item>
+                            <el-menu-item index="/home/MyKnowledge">我的知识</el-menu-item>
+
+                          </el-sub-menu>
+                      
                       <el-menu-item index="1-2">关于我们</el-menu-item>
                     
                 </el-sub-menu>
