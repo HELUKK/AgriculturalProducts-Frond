@@ -14,6 +14,31 @@ export interface User {
     realName?: String
 }
 
+export interface Userinfo {
+    userName?:String
+    nickName?: String
+    phone?:String
+    identityNum?:String
+    address?:String
+    avatar?:String
+    realName?: String
+}
+
+export interface Expert{
+        userName: string,
+        realName: string,
+        phone: string,
+        profession: string,
+        position: string,
+        belong: string
+}
+export interface Discuss {
+    discussId? : number
+    knowledgeId? :number
+    ownName? : string
+    content? : string
+    createTime? : Date
+}
 export interface ResultVO {
     code: number
     message?: string
