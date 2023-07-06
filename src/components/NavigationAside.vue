@@ -10,7 +10,7 @@
                 <!-- 首页 -->
                <el-menu-item  index="/home/index">
                  <el-icon>
-                  <Menu/>
+                  <Menu />
                  </el-icon>
                  <span>首页</span>
                 </el-menu-item>
@@ -57,7 +57,8 @@
                             </template>
                             <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
                             <el-menu-item index="/home/UserManage">用户管理</el-menu-item>
-                            <el-menu-item index="/home/MyKnowledge">我的发布</el-menu-item>
+                            <el-menu-item index="/home/MyKnowledge">我的需求</el-menu-item>
+                            <el-menu-item index="/home/mypublicG">我的商品</el-menu-item>
                             </el-sub-menu>
                           <el-sub-menu index="2">
                             <template #title>
