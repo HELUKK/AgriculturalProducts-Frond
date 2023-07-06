@@ -8,7 +8,7 @@
         </div>
         <span class="search">
             <el-icon class="ss"><Search /></el-icon>
-            <input type="text" placeholder="搜索商品" />
+              <el-input v-model="key" size="small" placeholder="请输入搜索内容" />
         </span>
         </el-header>
         <!-- main -->
@@ -59,6 +59,7 @@ const detail = (id:number)=>{
   console.log("detai2调用")
      store.detail(id);
 }
+const key=ref('')
 const page = ref(store.page)
 console.log(page);
 const currentDate = ref(new Date())
@@ -66,10 +67,29 @@ watch(page,(newValue,oldValue)=>{
        console.log(page)
        store.loadGoods(newValue);
 })
+
+watch([page,key],(newValue,oldValue)=>{
+     console.log(newValue)
+     //查询条件不为空--条件搜索
+    if(newValue[1].length!=0 )
+    {
+      store.searchgoods(newValue[1],newValue[0])
+      console.log('查询'+newValue[0]+' '+newValue[1])
+    }
+    //查询条件为空--读取
+    else{
+      store.loadGoods(newValue[0])
+    }
+
+    
+})
+
 onMounted(()=>{
   store.loadGoods(1)
 })
 </script>
+
+
 <style scoped>
 .example-pagination-block + .example-pagination-block {
   margin-top: 10px;

@@ -138,7 +138,22 @@ export  const useStore = defineStore('useStore', {
       } catch {        // 
      }
      },
-  
+     
+     //首页搜索
+     async searchgoods(key:string,page:number){
+        try {
+            const resp = await axios({
+             method:'get',
+             data:1,
+             url:'order/searchGoodsByKeys/'+key+"/"+page
+          })
+          this.goods = resp.data.data.list;
+          this.message = resp.data.data.message;
+          console.log(this.message)
+      } catch {        // 
+     }
+     },
+
      async loadKnow(page:number){
         try {
             const resp = await axios({
