@@ -70,6 +70,7 @@ const qid = (id:number)=>{
     
  onMounted(()=>{
    store.loadQuestions(1)
+   store.loadExperts(1)
  })
 watch(page,(newValue,oldValue)=>{
        store.loadQuestions(newValue);

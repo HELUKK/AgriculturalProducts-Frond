@@ -20,22 +20,22 @@ const router = createRouter({
       children:[
         {
           name:"quesd",//问答详情
-          path:"quesd",
+          path:"/quesd",
           component:() => import("@/components/QuesView.vue")
         },
         {
           name:"detail",
-          path:"detail",
+          path:"/detail",
           component:() => import("@/views/DetailView.vue")
         },
         {
           name:"requestsdetail",
-          path:"requestsdetail",
+          path:"/requestsdetail",
           component:() => import("@/views/RequestsDetailView.vue")
         },
         {
           name:"kdetail",
-          path:"kdetail",
+          path:"/kdetail",
           component:() => import("@/views/KdetailView.vue")
         },
         {
