@@ -98,7 +98,11 @@ export  const userStore = defineStore('userStore', {
          data:user,
          url:'user/'+user.userName
       })
-      alert('用户信息更新成功')
+      if(resp.data.code==20001){
+        alert(resp.data.message+","+resp.data.data)
+      }else{
+        alert('用户信息更新成功')
+      }
       console.log(resp.data.message)
       console.log('updateUserByUsername已运行结束');
   } catch {

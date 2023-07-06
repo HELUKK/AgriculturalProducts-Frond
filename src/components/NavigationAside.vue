@@ -56,7 +56,7 @@
                               <span>个人中心</span>
                             </template>
                             <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
-                            <el-menu-item index="/home/UserManage">用户管理</el-menu-item>
+                            <el-menu-item index="/UserManage" @click="shuaxin">用户管理</el-menu-item>
                             <el-menu-item index="/home/MyKnowledge">我的发布</el-menu-item>
                             </el-sub-menu>
                           <el-sub-menu index="2">
@@ -86,5 +86,10 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 
+const shuaxin = ()=>{
+  setTimeout(()=>{
+    window.location.reload()
+  },100)
+}
 </script>
 <style></style>
