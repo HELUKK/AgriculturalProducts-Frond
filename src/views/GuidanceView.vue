@@ -15,7 +15,28 @@
               class="col"
             >
            <div class="wen">
-           [问]<RouterLink to="/">{{ q.question }}</RouterLink>
+           [问]<RouterLink to="quesd" @click="qid(q.id)">{{ q.question }}</RouterLink>
+          </div>
+         
+         </el-col>
+         </el-row> 
+          <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.qtotal"  />
+          </div>
+     
+     <div class="right">
+      <RouterLink to="/"><h1>在线问答|</h1></RouterLink>
+      <RouterLink to="/"><h1>专家预约</h1></RouterLink>
+     </div>
+     <div class="experts">
+      <el-row >
+            <el-col
+              v-for="(e, index) in store.experts"
+              :key="index"
+              :offset="index > 0 ? 2 : 0"
+              class="col"
+            >
+           <div class="e">
+           
           </div>
          
          </el-col>
@@ -31,7 +52,9 @@ import {useStore} from '@/stores/index'
 const searchValue = ref("") 
 const store = useStore();
 const page  = ref(store.page) 
-
+const qid = (id:number)=>{
+    store.findQ(id)
+}
     const getData = (s:string)=>{
      store.selectQuestions({
         pageNum: store.page,
@@ -40,9 +63,6 @@ const page  = ref(store.page)
     }
     const handleSearch = ()=>{
         getData(searchValue.value)
-    }
-   const handleDetail=(id:number)=>{
-      
     }
    const handleTopicDetail=(s:string)=>{
      getData(s)
@@ -57,6 +77,17 @@ watch(page,(newValue,oldValue)=>{
 </script>
 
 <style scoped>
+.right{
+   display: flex;
+   position: absolute;
+   right: 4vw;
+   top: 9vh;
+   border: 0px solid red;
+   width: 28vw;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(155, 236, 186, 0.4);
+}
 img{
   height: 30px;
   margin-right: 3px;

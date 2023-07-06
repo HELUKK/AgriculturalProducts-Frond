@@ -1,32 +1,51 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
-import type { Know,ResultVO,Question,Discuss, User,Good } from '@/dataource/Types';
+import type { Know,ResultVO,Question,Discuss, User,Good,Expert } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
 
 export  const useStore = defineStore('useStore', {
     state: () => ({
-        user: {} as User ,
-        message: '' as string,
-        exception: '' as string,
+        user: {} as User ,//用户信息
+        message: '' as string,//后端返回信息    
+        exception: '' as string,//异常信息
         page:1,
-        users:[] as User[],
-        goods:[] as Good[],
-        sgoods:[] as Good[],
-        discuss:[] as Discuss[],
-        gtotal:0 as number,
-        ktotal:0 as number,
-        stotal:0 as number,
+        users:[] as User[],//用户列表
+        goods:[] as Good[],//商品
+        sgoods:[] as Good[],//货源商品
+        discuss:[] as Discuss[],//讨论
+        gtotal:0 as number,//商品总数
+        ktotal:0 as number,//知识总数
+        stotal:0 as number,//货源总数
         token:'',
-        flag:false,
-        flag2:"",
-        knows:[] as Know[],
+        flag:false,//登录标识
+        flag2:"",//detail页面标识
+        knows:[] as Know[],//知识列表
         detailid:0 ,//detail识别id
         questions:[] as Question[],//问答
         qtotal:0 as number,//问答总条数
+        question:{} as Question,//指定问题
+        experts:[] as Expert[],//专家列表
+        etotal:0 as number,//专家总数
     }),
 
    actions:{
+    //加载专家列表
+    async loadExperts(page:number){
+        try {
+             const resp = await axios({
+             method:'get',
+             url:'question/findAllExpert/'+page
+          })
+           this.experts = resp.data.data.list
+            this.etotal = resp.data.data.total
+      } catch {        // 
+     }
+    },
+    //查找返回指定问题
+    findQ(id:number){
+       this.question= this.questions.find(q=>q.id==id) as Question
+    },
     //检索问题
     async selectQuestions(params:{pageNum:number,keys:string}) {
         if(params.keys===''){
