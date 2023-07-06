@@ -31,7 +31,7 @@
    
 <script setup lang="ts">
    import { reactive, ref } from 'vue'
-   import { User } from '@/dataource/Types'
+   import type { User } from '@/dataource/Types'
    import {userStore} from '@/stores/user'
 
    const use = userStore()

@@ -51,9 +51,14 @@
                       <el-icon><location /></el-icon>
                       <span>设置</span>
                     </template>
-                      <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
-                      <el-menu-item index="/home/UserManage">用户管理</el-menu-item>
-
+                    <el-sub-menu index="3">
+                            <template #title>
+                              <span>个人中心</span>
+                            </template>
+                            <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
+                            <el-menu-item index="/home/UserManage">用户管理</el-menu-item>
+                            <el-menu-item index="/home/MyKnowledge">我的发布</el-menu-item>
+                            </el-sub-menu>
                           <el-sub-menu index="2">
                             <template #title>
                               <span>专家管理</span>
