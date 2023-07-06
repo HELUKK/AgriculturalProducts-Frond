@@ -71,11 +71,13 @@
   </template>
   
   <script lang="ts" setup>
+  import {userStore} from '@/stores/user'
   import { reactive, ref } from 'vue'
   import { useStore } from '@/stores/index'
   import  { ElMessage,ElMessageBox } from "element-plus"
   import  {USER,ADMIN} from '@/dataource/UserType'
 
+ 
   const usertype = {
      user: USER,
      admin: ADMIN
@@ -85,9 +87,11 @@
   password: '',
   role: '',
 })
+const user = userStore()
   const store =  useStore();
-  const login = () => {
-      store.login();
+  const login = async () => {
+      await store.login();
+      user.loginSelectByUsername();
   }
   const register = () => {
     store.user.nickName = newuser.username;

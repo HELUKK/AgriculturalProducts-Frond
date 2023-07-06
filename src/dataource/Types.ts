@@ -55,7 +55,10 @@ export interface cartInfo{
     "shoppingId":number,
     "title":string,
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> d6ce26cb18dcb0ce0bb0e28bcfcc458774a0ec5d
 export interface Question{
         "id": number,
         "expertName": string,
