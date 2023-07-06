@@ -20,7 +20,7 @@ const router = createRouter({
       children:[
         {
           name:"quesd",//问答详情
-          path:"/quesd",
+          path:"quesd",
           component:() => import("@/components/QuesView.vue")
         },
         {
