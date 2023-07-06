@@ -69,6 +69,11 @@ const router = createRouter({
           path:"UserDetial",
           component:() => import("@/views/HomeView/UserDetialView.vue")
         },
+        {
+          name:"UserManage",
+          path:"UserManage",
+          component:() => import("@/views/HomeView/UserManageView.vue")
+        },
       ]
     }
   ]

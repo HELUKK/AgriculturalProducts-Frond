@@ -14,6 +14,16 @@ export interface User {
     realName?: String
 }
 
+export interface Userinfo {
+    userName?:String
+    nickName?: String
+    phone?:String
+    identityNum?:String
+    address?:String
+    avatar?:String
+    realName?: String
+}
+
 export interface ResultVO {
     code: number
     message?: string

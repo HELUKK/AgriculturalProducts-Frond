@@ -53,6 +53,7 @@
                     </template>
                    
                       <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
+                      <el-menu-item index="/home/UserManage">用户管理</el-menu-item>
                       <el-menu-item index="1-2">关于我们</el-menu-item>
                     
                 </el-sub-menu>
