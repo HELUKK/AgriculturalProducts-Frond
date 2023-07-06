@@ -13,7 +13,13 @@ export interface User {
     avatar?:String
     realName?: String
 }
-
+export interface Discuss {
+    discussId? : number
+    knowledgeId? :number
+    ownName? : string
+    content? : string
+    createTime? : Date
+}
 export interface ResultVO {
     code: number
     message?: string
@@ -55,6 +61,10 @@ export interface cartInfo{
     "shoppingId":number,
     "title":string,
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6ce26cb18dcb0ce0bb0e28bcfcc458774a0ec5d
 export interface Question{
         "id": number,
         "expertName": string,

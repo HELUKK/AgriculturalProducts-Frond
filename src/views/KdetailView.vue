@@ -15,24 +15,23 @@
       <div>{{data?.content}}</div>
     </div>
     <div>
-    <el-input type="textarea"  :rows="4"></el-input>
+    <el-input type="textarea" v-model="content" :rows="4"></el-input>
   </div>
-    <!-- 
+
     <div style="margin-top:20px;display: flex;flex-direction: row;justify-content: flex-end">
-      <el-button type="success" @click="handleComment">添加评论</el-button>
+      <el-button type="success" @click="addCon">添加评论</el-button>
     </div>
     <div class="comment-container">
-      <div class="comment-num">评论共{{commentArray.length||0}}条</div>
-      <div class="comment-item" v-for="(item,index) in commentArray" :key="index">
+      <div class="comment-num">评论共{{store.discuss.length||0}}条</div>
+      <div class="comment-item" v-for="(item,index) in store.discuss" :key="index">
         <div>{{item.content}}</div>
         <div class="comment-tips">
           <div style="margin-right:40px;">评论人：<span class="color6">{{item.ownName}}</span></div>
-          <div>评论时间：<span class="color6">{{item.createTime|formatTimer2}}</span></div>
+          <div>评论时间：<span class="color6">{{item.createTime}}</span></div>
         </div>
       </div>
     </div>
-  <!- </div>  -->
-  </div>
+</div>  
 </template>
 
 <script setup lang="ts">
@@ -42,8 +41,20 @@ import { ref } from 'vue';
 
 const store = useStore()
 const data = ref<Know>()
+const content = ref('')
 data.value = store.knows.find(g=>g.knowledgeId == store.detailid)
-console.log("good调用"+data.value?.ownName)
+console.log("knowid"+data.value?.knowledgeId)
+console.log("detailId"+store.detailid)
+store.loadDis(store.detailid)
+const addCon = () =>{
+  if(content.value == ''){
+    console.log("内容不能为空");
+  }
+  else{
+  store.addDiscuss(store.detailid,content.value)
+  }
+}
+content.value =''
 </script>
 <style scoped>
 .knowlege-detail-container{

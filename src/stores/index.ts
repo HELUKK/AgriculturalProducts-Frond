@@ -1,24 +1,25 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
-import type { Know,ResultVO, User,Good,Question } from '@/dataource/Types';
+import type { Know,ResultVO,Question,Discuss, User,Good } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
 
 export  const useStore = defineStore('useStore', {
     state: () => ({
-        user: {} as User ,//用户信息
-        message: '' as string,//后端返回信息    
-        exception: '' as string,//异常信息
-        page:1,//分页查询
-        users:[] as User[],//用户列表
-        goods:[] as Good[],//商品列表
-        sgoods:[] as Good[],//货源list
-        gtotal:0 as number,//商品总条数
-        ktotal:0 as number,//知识条数
-        stotal:0 as number,//货源条数
-        token:'',//token
-        flag:false,//是否登录
-        flag2:"",//detail页面识别标识
+        user: {} as User ,
+        message: '' as string,
+        exception: '' as string,
+        page:1,
+        users:[] as User[],
+        goods:[] as Good[],
+        sgoods:[] as Good[],
+        discuss:[] as Discuss[],
+        gtotal:0 as number,
+        ktotal:0 as number,
+        stotal:0 as number,
+        token:'',
+        flag:false,
+        flag2:"",
         knows:[] as Know[],
         detailid:0 ,//detail识别id
         questions:[] as Question[],//问答
@@ -77,16 +78,17 @@ export  const useStore = defineStore('useStore', {
           })
           this.sgoods = resp.data.data.list;
           this.stotal = resp.data.data.total;
+
       } catch {        // 
      }
     },
-<<<<<<< HEAD
+
     detail3(id:number){
         this.flag2="car"
          this.detailid = id;
          router.push('/detail')
      },
-=======
+
 
     //购物车添加
     async addOrderToCart(id:number) {
@@ -97,12 +99,8 @@ export  const useStore = defineStore('useStore', {
             alert("添加失败,请先登录");
           });
     },
-<<<<<<< HEAD
 
 
->>>>>>> f9a6e7da6414a247cf8b1e2dfeebdd6fff18e8db
-=======
->>>>>>> c007b11382aacb1713d6e06fca7bdce066106454
     detail2(id:number){
         this.flag2="need"
          this.detailid = id;
@@ -151,12 +149,37 @@ export  const useStore = defineStore('useStore', {
           })
           this.knows = resp.data.data.list;
           this.ktotal = resp.data.data.total;
+
       } catch {        // 
      }
     },
 
+    async loadDis(id : number){
+        try {
+            const resp = await axios({
+                method:'get',
+                url:'knowledge/selectByKnowledge/'+id
+            })
+            this.discuss = resp.data.data
+            console.log(this.discuss);
+            
+        }catch{
+            console.error("x");
+            
+        }
+    },
+    //添加评论
+    async addDiscuss(id:number,content:string){
+        return axios({
+            method:'post',
+            url:'knowledge/addByKnowledge/'
+        }).catch((err)=>{
+            console.log("x");
+        })
+    },
     //读取商品
     async loadGoods(page:number){
+        
         try {
               const resp = await axios({
                method:'get',

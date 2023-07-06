@@ -10,33 +10,37 @@ export  const useCartStore = defineStore('cartStore', {
     state: () => ({
        myCart:[] as cartInfo[],
        choosedCart:[] as cartInfo[],
-       tMoney : 0
+       tMoney:'0'
     }),
 
    actions:{
     
+    //选择
     choose(shopping : cartInfo){
 
         this.choosedCart.push(shopping)
-
+        this.tMoney='0'
         this.choosedCart.forEach(element => {
-            this.tMoney = parseFloat(element.price)*element.count + this.tMoney
+            this.tMoney =( parseFloat(element.price)*element.count + parseFloat(this.tMoney)).toFixed(2)
         })
+        console.log('选择后'+this.choosedCart[0]?.price+' '
+        +this.choosedCart[1]?.price+' '+this.choosedCart[2]?.price+' ')
     },
 
+    //取消选择
     unChoose(shopping : cartInfo) {
-        const index = this.choosedCart.findIndex((item) => {
-            item.orderId == shopping.orderId
+        const index = this.choosedCart.findIndex((item) => {return item.orderId == shopping.orderId
         })
-        console.log(this.tMoney)
-        console.log(index)
-        console.log(this.choosedCart[index + 1])
-        console.log(this.choosedCart[index + 1].count)
-        this.tMoney = this.tMoney - parseFloat(this.choosedCart[index + 1].price)*this.choosedCart[index + 1].count
-        console.log("---"+this.tMoney)
-        this.choosedCart.splice(index -1,1)
+
+        console.log('当前要减的价格：' +parseFloat(this.choosedCart[index].price)*this.choosedCart[index].count)
+        console.log('当前总价格1:'+this.tMoney)
+        this.tMoney = (parseFloat(this.tMoney) - parseFloat(this.choosedCart[index].price)*this.choosedCart[index].count).toFixed(2)
+        console.log('当前总价格2:'+this.tMoney)
+        this.choosedCart.splice(index,1)
+
     },
 
+    //调用
     async checkCart () {
         const res = await checkCartAPI()
         console.log(res.data.data)
@@ -44,6 +48,8 @@ export  const useCartStore = defineStore('cartStore', {
         console.log("store中的:"+this.myCart)
     },
 
+
+    //添加
     async addCart(orderId : number) {
         const res = await addCartAPI(orderId)
         console.log(res.data.code)
@@ -54,6 +60,8 @@ export  const useCartStore = defineStore('cartStore', {
             
         }
     },
+
+    //删除
     async deleteCart(shoppingId : number ){
         const res = await deleteCartAPI(shoppingId)
         if ( res.data.code == 20000){
@@ -61,6 +69,8 @@ export  const useCartStore = defineStore('cartStore', {
             alert("删除成功")
         }
     },
+
+    //更新-改数量
     async updateCart(shoppingId:number,count:number){
         const res = await updateCartAPI(shoppingId,count)
         if (res.data.code == 20000){
