@@ -17,31 +17,12 @@
       <el-table-column v-if="user.role=='expert'" label="提问者" prop="questioner" />
       <el-table-column align="right">
       <template #default="scope">
-            <el-button size="small" @click="">修改</el-button>
-            <el-button size="small" @click="">删除</el-button>
+            <el-button size="small" @click="handleEdit(scope.$index)">修改</el-button>
+            <el-button size="small" @click="handleDelete(scope.$index)">删除</el-button>
          </template>
     </el-table-column>
     </el-table>
-
-            <el-popover placement="right" :width="700" trigger="click">
-            <template #reference>
-                <el-button style="margin-right: 16px">修改</el-button>
-            </template>
-            <el-form label-width="120px">
-            <el-form-item label="问题标题" v-model="usestore.userquestions">
-            <el-input  />
-            </el-form-item>
-         
-            <el-form-item label="Activity form">
-            <el-input  type="textarea" />
-            </el-form-item>
-            <el-form-item>
-            <el-button type="primary">Create</el-button>
-            <el-button>Cancel</el-button>
-            </el-form-item>
-                </el-form>
-            </el-popover>
-
+       <Edit ref="editRef" />
   </template>
   
   
@@ -51,8 +32,10 @@
   import {userStore} from '@/stores/user';
   import type { Question, User } from '@/dataource/Types';
   import { ElMessage, ElMessageBox } from 'element-plus'
-
+  import Edit from '@/components/QuestionView.vue'
   let storedData = window.sessionStorage.getItem('user')
+
+  const usestore=useStore()
   if(storedData!=null){
     console.log('user存在');
    }else{
@@ -69,8 +52,22 @@
   }
   const user = JSON.parse(storedData)
   const changeflag=(user.role=='user') as boolean
+  const editRef = ref()
+  const handleEdit = (index:number) => {
 
-  const usestore=useStore()
+    //打开页面并传入数据双向绑定
+    editRef.value.open(usestore.userquestions[index])
+    // user.updateUserByUsername(userName)
+  }
+
+  //删除
+  const handleDelete = async(index:number) => {
+   usestore.deleteQuestion(usestore.userquestions[index].id)
+
+  }
+
+
+
   const userstore=userStore()
   let changecontent=ref<string>('')
   const fuzhi=(index:number)=>{
