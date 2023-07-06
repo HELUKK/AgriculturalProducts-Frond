@@ -39,7 +39,12 @@
                 <div style="padding: 0px">
                 <span id="span">{{ o.title + "￥:"+o.price }}</span>
                 <div class="bottom">
-                <el-button text class="button"  @click="deleteCart(o?.shoppingId)">删除</el-button>
+                  <el-popconfirm title="确定移除购物车吗?">
+                  <template #reference>
+                      <el-button text class="button"  @confirm="deleteCart(o?.shoppingId)">移除</el-button>
+                    </template>
+                  </el-popconfirm>
+                <!-- <el-button text class="button"  @click="deleteCart(o?.shoppingId)">删除</el-button> -->
                 <el-checkbox  label="选择" size="small" @change="choose(o)" />
                 <el-input-number size="small" v-model="o.count" :min="1" :max="10" @change="handleChange(o.shoppingId,o.count)" />
               </div>

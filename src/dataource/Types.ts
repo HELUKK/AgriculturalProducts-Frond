@@ -13,6 +13,14 @@ export interface User {
     avatar?:String
     realName?: String
 }
+export interface Expert{
+        userName: string,
+        realName: string,
+        phone: string,
+        profession: string,
+        position: string,
+        belong: string
+}
 export interface Discuss {
     discussId? : number
     knowledgeId? :number

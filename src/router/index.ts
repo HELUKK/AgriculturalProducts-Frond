@@ -19,6 +19,11 @@ const router = createRouter({
       redirect:'/home/index',
       children:[
         {
+          name:"quesd",//问答详情
+          path:"quesd",
+          component:() => import("@/components/QuesView.vue")
+        },
+        {
           name:"detail",
           path:"/detail",
           component:() => import("@/views/DetailView.vue")
