@@ -13,6 +13,14 @@ export interface User {
     avatar?:String
     realName?: String
 }
+export interface Userinfo {
+    avatar?: String,
+    nickName?: String,
+    phone?: String,
+    identityNum?: String,
+    address?: String,
+    userName?: String
+}
 
 export interface ResultVO {
     code: number

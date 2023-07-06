@@ -3,7 +3,6 @@ import axios from '@/axios';
 import type { Know,ResultVO, User,Good } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
-
 export  const useStore = defineStore('useStore', {
     state: () => ({
         user: {} as User ,
@@ -117,6 +116,7 @@ export  const useStore = defineStore('useStore', {
            {this.token = resp.data.data
            this.message = resp.data.message
            open(this.message)
+
          }
          else{
              open('密码或账号错误')
