@@ -27,18 +27,61 @@ export  const useStore = defineStore('useStore', {
         experts:[] as Expert[],//专家列表
         etotal:0 as number,//专家总数
         userquestions:[] as Question[],
+        ename:'' as string,//专家名字
     }),
 
    actions:{
+    //添加预约
+    async addAppoint(form:{ 
+    phone:string,
+    soilCondition:string,
+    plantCondition:string,
+    plantDetail:string,
+    plantName:string,
+    address:string,
+    area:string,
+    status:number,
+    expertName:string,}){
+            try {
+                console.log(window.sessionStorage.getItem("token"))
+                 const resp = await axios({
+                 method:'post',
+                 url:'reserve/addReserve',
+                 data:form
+              })
+               open(resp.data.message)
+    
+          } catch {        
+            open("预约失败")
+         }
+        },
+    //添加提问
+    async addQuetion(form:{ 
+    title:string,
+    plantName:string,
+    phone:string,
+    expertName:string,
+    status:number,
+    question:string}){
+        try {
+             const resp = await axios({
+             method:'post',
+             url:'question/add',
+             data:form
+          })
+           open(resp.data.message)
+
+      } catch {        // 
+     }
+    },
     //加载专家列表
-    async loadExperts(page:number){
+    async loadExperts(){
         try {
              const resp = await axios({
              method:'get',
-             url:'question/findAllExpert/'+page
+             url:'user/searchAllExpert'
           })
-           this.experts = resp.data.data.list
-            this.etotal = resp.data.data.total
+            this.experts = resp.data.data
       } catch {        // 
      }
     },
