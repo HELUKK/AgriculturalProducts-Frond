@@ -3,7 +3,6 @@ import axios from '@/axios';
 import type { Know,ResultVO,Question,Discuss, User,Good } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
-
 export  const useStore = defineStore('useStore', {
     state: () => ({
         user: {} as User ,
@@ -139,7 +138,22 @@ export  const useStore = defineStore('useStore', {
       } catch {        // 
      }
      },
-  
+     
+     //首页搜索
+     async searchgoods(key:string,page:number){
+        try {
+            const resp = await axios({
+             method:'get',
+             data:1,
+             url:'order/searchGoodsByKeys/'+key+"/"+page
+          })
+          this.goods = resp.data.data.list;
+          this.message = resp.data.data.message;
+          console.log(this.message)
+      } catch {        // 
+     }
+     },
+
      async loadKnow(page:number){
         try {
             const resp = await axios({
@@ -218,6 +232,7 @@ export  const useStore = defineStore('useStore', {
            {this.token = resp.data.data
            this.message = resp.data.message
            open(this.message)
+
          }
          else{
              open('密码或账号错误')

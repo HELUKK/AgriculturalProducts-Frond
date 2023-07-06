@@ -13,13 +13,7 @@ export interface User {
     avatar?:String
     realName?: String
 }
-export interface Discuss {
-    discussId? : number
-    knowledgeId? :number
-    ownName? : string
-    content? : string
-    createTime? : Date
-}
+
 export interface ResultVO {
     code: number
     message?: string
