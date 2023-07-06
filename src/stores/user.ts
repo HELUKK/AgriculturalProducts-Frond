@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
 import type { User,Userinfo } from '@/dataource/Types';
+import { log } from 'console';
 export  const userStore = defineStore('userStore', {
     state: () => ({
         user: {} as User,
@@ -80,6 +81,9 @@ export  const userStore = defineStore('userStore', {
            method:'delete',
            url:'user/'+userName
         })
+        console.log(resp.data)
+        alert('用户删除成功')
+        console.log(resp.data.message)
         console.log('deleteUserByUsername已运行结束');
     } catch {
       console.log('deleteUserByUsername失效');
@@ -94,24 +98,30 @@ export  const userStore = defineStore('userStore', {
          data:user,
          url:'user/'+user.userName
       })
+      alert('用户信息更新成功')
+      console.log(resp.data.message)
       console.log('updateUserByUsername已运行结束');
   } catch {
     console.log('updateUserByUsername失效');
  }
  },
- //分页查询所有用户
- async  selectAllUserPage(pageNum:number){
-  console.log('selectAllUserPage已运行');
-  try {
-      const resp = await axios({
-       method:'put',
-       url:'search/'+pageNum
-    })
-    console.log('selectAllUserPage已运行结束');
-} catch {
-  console.log('selectAllUserPage失效');
-}
-},
+  //查询所有用户
+  async selectAllUser(){
+    console.log('selectAllUser已运行');
+    try {
+        const resp = await axios({
+         method:'get',
+         url:'user/selectAllUser'
+      })
+      console.log(resp.data.data)
+      this.users = resp.data.data
+      window.sessionStorage.setItem("users",JSON.stringify(this.users))
+      console.log(this.users)
+      console.log('selectAllUser已运行结束');
+  } catch {
+    console.log('selectAllUser失效');
+  }
+  },
    }
 
 })

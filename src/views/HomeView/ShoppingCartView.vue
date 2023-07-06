@@ -1,91 +1,91 @@
 <template>
-    <div class="common-layout">
-      <el-container class="ccc">
-        <el-header class="head">
-            <el-row>
-              <el-col :span="12">
-                <div class="title">
-                <el-icon size="30px" id="ic" color="rgb(151, 231, 58)" ><ShoppingCart /></el-icon>
-                <h2 id="h">购物车界面</h2>
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <h2>
-                  总价：{{ cartStore.tMoney }}
-                </h2>
-              </el-col>
-            </el-row>
-            
-        </el-header>
-        <!-- main -->
-        <el-main class="main">
-          <!-- 分页 -->
-          <div class="example-pagination-block" >
-            <el-row >
-            <el-col
-              v-for="(o, index) in cartStore.myCart"
-              :key="o"
-              :span="4"
-              :offset="index > 0 ? 2 : 0"
-              class="col"
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <el-menu
+          class="el-menu-demo"
+          mode="horizontal"
+          :ellipsis="false"
+        >
+          <el-menu-item index="0">
+            我的购物车
+          </el-menu-item>
+          <div class="flex-grow" />
+          <el-menu-item index="1">
+            总价：{{ cartStore.tMoney }}
+          </el-menu-item>
+          <el-menu-item index="2">
+            <el-button @click="commit()" size="large" type="success" round>提交订单</el-button>
+          </el-menu-item>
+        </el-menu>
+      </el-header>
+      <el-main>
+        <!-- <el-checkbox-group v-model="cartStore.choosedCart"> -->
+          <el-table  :data="cartStore.myCart" style="width: 100%" stripe="true">
+          <el-table-column prop="picture" label="图片" width="200" >
+            <template #default="{row}">
+              <img :src="row.picture">
+            </template>
+          </el-table-column>
+          <el-table-column prop="title" label="标题" width="200" />
+          <el-table-column prop="content" label="内容" width="200" />
+          <el-table-column prop="price" label="单价" width="200" />
+          <el-table-column label="修改数量" width="200px" >
+            <template #default="{row}">
+              <el-input-number size="small" v-model="row.count" :min="1" :max="10" @change="handleChange(row.shoppingId,row.count)" />
+            </template>
+          </el-table-column>
+          <el-table-column label="选择" width="150px">
+            <template #default="{row}">
+              <el-checkbox  @change="choose(row)" label="选择"  border="true" />
+            </template>
+          </el-table-column>
+          <el-table-column label="移除" width="100px">
+            <template #default="{row}">
+              <el-popconfirm
+              confirm-button-text="确定"
+              cancel-button-text="取消"
+              title="确定移除?"
+              @confirm="confirmEvent(row.shoppingId)"
             >
-            <el-card :body-style="{ padding: '0px', margin:'5px' }">
-              <div class="imgbox">
-                <img
-                :src="o.picture"
-                class="image"
-                />
-              </div>
-                <div style="padding: 0px">
-                <span id="span">{{ o.title + "￥:"+o.price }}</span>
-                <div class="bottom">
-                  <el-popconfirm title="确定移除购物车吗?">
-                  <template #reference>
-                      <el-button text class="button"  @confirm="deleteCart(o?.shoppingId)">移除</el-button>
-                    </template>
-                  </el-popconfirm>
-                <!-- <el-button text class="button"  @click="deleteCart(o?.shoppingId)">删除</el-button> -->
-                <el-checkbox  label="选择" size="small" @change="choose(o)" />
-                <el-input-number size="small" v-model="o.count" :min="1" :max="10" @change="handleChange(o.shoppingId,o.count)" />
-              </div>
-            </div>
-        </el-card>
-         </el-col>
-         </el-row> 
-          <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.gtotal"  />
-          </div>
-          <!-- 分页 -->
-        </el-main>
-      </el-container>
-    </div>
-  </template>
+              <template #reference>
+                  <el-icon size="30px" color="#F56C6C"><DeleteFilled /></el-icon>
+              </template>
+            </el-popconfirm>
+            </template>
+          </el-table-column>
+        </el-table>
+        <!-- </el-checkbox-group> -->
+      </el-main>
+    </el-container>
+  </div>
+</template>
 
-
-
-<script lang="ts" setup>
-import {  onMounted, ref, watch } from 'vue'
-import {useStore} from '@/stores/index';
-import { useCartStore } from '@/stores/cart';
-import router from '@/router';
+<script setup lang="ts">
+import { useCartStore } from "@/stores/cart";
+import { onMounted } from "vue";
 import type { cartInfo } from '@/dataource/Types';
+import { ref } from "vue";
   
-const count = ref(1);
-const store = useStore();
-const cartStore = useCartStore()
 
-console.log(cartStore.myCart)
+  const cartStore = useCartStore()
+  // 页面刷新的时候查询所有的购物车数据
+  onMounted(() => cartStore.checkCart())
 
+  // 点击数量控制组件触发
+  const handleChange = (shoppingId:number,count:number) => {
+    cartStore.updateCart(shoppingId,count)
+  }
 
+  // 确定删除时调用
+  const confirmEvent = (shoppingId:number) => {
 
-const deleteCart = (id:number)=>{
-  cartStore.deleteCart(id)
-}
+    cartStore.deleteCart(shoppingId)
 
-const handleChange = (shoppingId:number,count:number) => {
-  cartStore.updateCart(shoppingId,count);
-}
+  }
 
-const choose = (shopping : cartInfo) => {
+  // 选择时调用
+  const choose = (shopping : cartInfo) => {
   let flag = false
   cartStore.choosedCart.forEach(element => {
     if(element.orderId == shopping.orderId){
@@ -95,128 +95,11 @@ const choose = (shopping : cartInfo) => {
   if (flag == false){
     cartStore.choose(shopping)
   }else{
-    cartStore.unChoose(shopping)
+    cartStore.unChoose(shopping.shoppingId)
   }
+} 
+// 提交
+const commit = () => {
+  cartStore.commit()
 }
-
-const page = ref(store.page)
-console.log(page);
-
-watch(page,(newValue,oldValue)=>{
-       console.log(page)
-       store.loadGoods(newValue);
-})
-
-
-
-onMounted(()=>{
-  store.loadGoods(1)
-})
-onMounted(() => {
-  cartStore.checkCart()
-})
-
-
-
 </script>
-<style scoped>
-.flex-grow{
-  flex-grow: 1;
-}
-
-.example-pagination-block + .example-pagination-block {
-  margin-top: 10px;
-}
-.col{
-    margin: 5px;
-    margin-right: 3vh;
-}
-.bu{
-  position: fixed;
-  bottom: 2vh;
-  left: 45%;
-}
-.example-pagination-block {
-  margin-bottom: 16px;
-}
-.ccc{
-  height: 100%;
-}
-.head{
-    border: 0px solid rgb(151, 231, 58);
-    margin: 0;
-    
-}
-.imgbox{
-    width: 346px;
-	  height: 200px;
-    display: flex;
-    padding: 0;
-    margin: 0;
-  }
-.main{
-    border: 0px solid red;
-    height: 100%;
-}
-#span{
-  white-space: nowrap;
-            /* 2.溢出的部分隐藏起来 */
-            overflow: hidden;
-            /* 3.文字溢出的时候用省略号来显示 */
-            text-overflow: ellipsis;
-}
-.title{
-    display: flex;
-    position: relative;
-    top: 15%;
-}
-.search{
-   display: flex;
-   height: 25px;
-   position: absolute;
-   top: 14vh;
-   left: 155vh;
-}
-input{
-   border-radius: 50px;
-}
-.ss{
-    position: relative;
-    left: 85%;
-    top: 28%;
-}
-*{
-  margin: 0;
-  padding: 0;
-}
-.time {
-  font-size: 12px;
-  color: #999;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.button {
-  padding: 0;
-  min-height: auto;
-}
-
-.image {
-  width: 100%;
-  display: block;
-}
-img{
-    width: 100%;
-    height: 100%;
-    object-fit:fill;
-    padding: 0;
-    margin: 0;
-  }
-</style>
-  

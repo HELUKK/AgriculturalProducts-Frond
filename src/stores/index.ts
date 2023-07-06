@@ -26,6 +26,7 @@ export  const useStore = defineStore('useStore', {
         question:{} as Question,//指定问题
         experts:[] as Expert[],//专家列表
         etotal:0 as number,//专家总数
+        userquestions:[] as Question[],
         ename:'' as string,//专家名字
         publicType:"",//发布类型
     }),
@@ -121,6 +122,7 @@ export  const useStore = defineStore('useStore', {
     findQ(id:number){
        this.question= this.questions.find(q=>q.id==id) as Question
     },
+
     //检索问题
     async selectQuestions(params:{pageNum:number,keys:string}) {
         if(params.keys===''){
@@ -151,6 +153,38 @@ export  const useStore = defineStore('useStore', {
             }
         }
     },
+
+    //加载个人的问题
+    async loaduserQuestions(role:string){
+        console.log('if前')
+        if(role=='user'){
+            try {
+                console.log('查询前')
+                const resp = await axios({
+                method:'get',
+                url:'question/selectQuestionByNow/'+'questioner'
+             })
+                console.log(resp.data.message)
+                console.log(resp.data.data)
+              this.userquestions = resp.data.data
+               this.qtotal = resp.data.data.total
+            } catch {        // 
+            }
+        }
+        else{
+            try {
+                const resp = await axios({
+                method:'get',
+                url:'question/selectQuestionByNow/'+'answerer'
+             })
+               this.questions = resp.data.data.list
+               this.qtotal = resp.data.data.total
+            } catch {        // 
+            }  
+        }
+        console.log('if后')
+    },
+
    //问答加载
      async loadQuestions(page:number){
         try {
