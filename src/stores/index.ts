@@ -28,9 +28,42 @@ export  const useStore = defineStore('useStore', {
         etotal:0 as number,//专家总数
         userquestions:[] as Question[],
         ename:'' as string,//专家名字
+        publicType:"",//发布类型
     }),
 
    actions:{
+    //添加商品
+    async addPublicPG(form:{ 
+        type:string
+        orderStatu:number
+        picture:string
+        title: string
+        price:number
+        content: string}){
+                try {
+                     const resp = await axios({
+                     method:'post',
+                     url:'order',
+                     data:form
+                  })
+                   open(resp.data.message)
+        
+              } catch {        
+                open("添加失败")
+             }
+            },
+    //加载我的商品
+    async loadMygoods(page:number){
+        try {
+             const resp = await axios({
+             method:'get',
+             url:'order/searchAllMyGoods/'+page
+          })
+            this.goods = resp.data.data.list
+            this.gtotal = resp.data.data.total
+      } catch {        // 
+     }
+    },
     //添加预约
     async addAppoint(form:{ 
     phone:string,

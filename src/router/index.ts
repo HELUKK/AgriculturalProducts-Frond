@@ -19,6 +19,16 @@ const router = createRouter({
       redirect:'/home/index',
       children:[
         {
+          name:"handlePG",//发布商品
+          path:"/handlePG",
+          component:() => import("@/components/PublishMessage.vue")
+        },
+        {
+          name:"mypublicG",//我的商品
+          path:"mypublicG",
+          component:() => import("@/views/PublishedMessage.vue")
+        },
+        {
           name:"handlea",//预约
           path:"handlea",
           component:() => import("@/views/AppointView.vue")

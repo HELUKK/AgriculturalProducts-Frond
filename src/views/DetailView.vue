@@ -40,15 +40,15 @@
 <script setup lang="ts">
 import {useStore} from '@/stores/index'
 import type {Good} from '@/dataource/Types'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useCartStore } from '@/stores/cart';
 
 const cartStore = useCartStore()
 
-const visible = ref(false)
+ const visible = ref(false)
  const store = useStore();
 
- let data = {} as Good
+  let data = {} as Good
  
   if(store.flag2 == "good"){
   data = store.goods.find(g=>g.orderId==store.detailid) as Good
@@ -61,7 +61,6 @@ const visible = ref(false)
  const addCart = ()=> {
      cartStore.addCart(data.orderId)
  }
-
 </script>
 
 
