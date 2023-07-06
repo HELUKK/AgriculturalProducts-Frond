@@ -26,7 +26,7 @@ export  const useStore = defineStore('useStore', {
         question:{} as Question,//指定问题
         experts:[] as Expert[],//专家列表
         etotal:0 as number,//专家总数
-        userquestions:[] as Question[],
+        userquestions:[] as Question[],//个人的问答列表
         ename:'' as string,//专家名字
     }),
 
@@ -150,6 +150,19 @@ export  const useStore = defineStore('useStore', {
             }  
         }
         console.log('if后')
+    },
+
+    //根据问题id删除问题
+    async deleteQuestion(id:number){
+        try {
+            const resp = await axios({
+            method:'delete',
+            url:'question/deleteQuestionById/'+id
+         })
+           console.log('删除成功')
+           router.push('/home/MyQuestion')
+        } catch {        // 
+        }  
     },
 
    //问答加载
