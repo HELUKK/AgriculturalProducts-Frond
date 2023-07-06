@@ -19,6 +19,11 @@ const router = createRouter({
       redirect:'/home/index',
       children:[
         {
+          name:"quesd",//问答详情
+          path:"quesd",
+          component:() => import("@/components/QuesView.vue")
+        },
+        {
           name:"detail",
           path:"/detail",
           component:() => import("@/views/DetailView.vue")
@@ -67,7 +72,22 @@ const router = createRouter({
         {
           name:"UserDetial",
           path:"UserDetial",
-          component:() => import("@/views/HomeView/UserDetialView.vue")
+          component:() => import("@/views/UserDetialView.vue")
+        },
+        {
+          name:"MyQuestion",
+          path:"MyQuestion",
+          component:() => import("@/views/MyQuestionView.vue")
+        },
+        {
+          name:"myappointmennt",
+          path:"MyAppointmennt",
+          component:() => import("@/views/MyAppointment.vue")
+        },
+        {
+          name:"MyKnowledge",
+          path:"MyKnowledge",
+          component:() => import("@/views/MyKnowledge.vue")
         },
         {
           name:"UserManage",
