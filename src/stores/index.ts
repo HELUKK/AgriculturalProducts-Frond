@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
-import type { Know,ResultVO, User,Good } from '@/dataource/Types';
+import type { Know,ResultVO,Question,Discuss, User,Good } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
 export  const useStore = defineStore('useStore', {
@@ -12,6 +12,7 @@ export  const useStore = defineStore('useStore', {
         users:[] as User[],
         goods:[] as Good[],
         sgoods:[] as Good[],
+        discuss:[] as Discuss[],
         gtotal:0 as number,
         ktotal:0 as number,
         stotal:0 as number,
@@ -19,17 +20,60 @@ export  const useStore = defineStore('useStore', {
         flag:false,
         flag2:"",
         knows:[] as Know[],
-        detailid:0 ,
+        detailid:0 ,//detail识别id
+        questions:[] as Question[],//问答
+        qtotal:0 as number,//问答总条数
     }),
 
    actions:{
-
+    //检索问题
+    async selectQuestions(params:{pageNum:number,keys:string}) {
+        if(params.keys===''){
+            try{
+            const resp = await axios({
+                method: 'get',
+                url: 'question/findAllQues/'+params.pageNum,
+                headers: {
+                    'Authorization': window.sessionStorage.getItem('token'),
+                },
+            })
+            this.questions = resp.data.data.list
+            this.qtotal = resp.data.data.total
+        }catch{//
+        }
+        }else{
+           try {const resp = await axios({
+                method: 'get',
+                url: 'question/findPageQues/'+params.keys+"/"+params.pageNum,
+                headers: {
+                    'Authorization': window.sessionStorage.getItem('token'),
+                },
+            })
+            this.questions = resp.data.data.list
+            this.qtotal = resp.data.data.total
+        }catch{
+                //
+            }
+        }
+    },
+   //问答加载
+     async loadQuestions(page:number){
+        try {
+             const resp = await axios({
+             method:'get',
+             url:'question/findAllQues/'+page
+          })
+           this.questions = resp.data.data.list
+            this.qtotal = resp.data.data.total
+      } catch {        // 
+     }
+    },
     //求购请求
     async loadNeeds(page:number){
         try {
             const resp = await axios({
              method:'get',
-             url:'order/goods/'+page
+             url:'order/needs/'+page
           })
           this.sgoods = resp.data.data.list;
           this.stotal = resp.data.data.total;
@@ -37,6 +81,13 @@ export  const useStore = defineStore('useStore', {
       } catch {        // 
      }
     },
+
+    detail3(id:number){
+        this.flag2="car"
+         this.detailid = id;
+         router.push('/detail')
+     },
+
 
     //购物车添加
     async addOrderToCart(id:number) {
@@ -47,6 +98,8 @@ export  const useStore = defineStore('useStore', {
             alert("添加失败,请先登录");
           });
     },
+
+
     detail2(id:number){
         this.flag2="need"
          this.detailid = id;
@@ -60,8 +113,33 @@ export  const useStore = defineStore('useStore', {
          router.push('/detail')
      },
 
-     //农业知识
-    async loadKnow(page:number){
+     kdetail(id:number){
+        this.detailid = id;
+        router.push('/kdetail')
+     }, 
+
+     //求购需求的详细信息
+     async todetail(id:number){
+        this.detailid = id;
+        router.push('/requestsdetail')
+     },
+
+     //求购页面搜索
+     async searchneeds(key:string,page:number){
+        try {
+            const resp = await axios({
+             method:'get',
+             data:1,
+             url:'order/selectNeedsByKeys/'+key+"/"+page
+          })
+          this.sgoods = resp.data.data.list;
+          this.message = resp.data.data.message;
+          console.log(this.message)
+      } catch {        // 
+     }
+     },
+  
+     async loadKnow(page:number){
         try {
             const resp = await axios({
              method:'get',
@@ -75,6 +153,29 @@ export  const useStore = defineStore('useStore', {
      }
     },
 
+    async loadDis(id : number){
+        try {
+            const resp = await axios({
+                method:'get',
+                url:'knowledge/selectByKnowledge/'+id
+            })
+            this.discuss = resp.data.data
+            console.log(this.discuss);
+            
+        }catch{
+            console.error("x");
+            
+        }
+    },
+    //添加评论
+    async addDiscuss(id:number,content:string){
+        return axios({
+            method:'post',
+            url:'knowledge/addByKnowledge/'
+        }).catch((err)=>{
+            console.log("x");
+        })
+    },
     //读取商品
     async loadGoods(page:number){
         

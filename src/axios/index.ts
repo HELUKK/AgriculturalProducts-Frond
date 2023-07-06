@@ -1,13 +1,15 @@
 import router from "@/router";
 import axios from "axios";
+
 axios.defaults.baseURL = 'http://127.0.0.1:8080/'
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
-    // 判断是否存在token,如果存在将每个页面header添加token
+    // 判断是否存在token,如果存在 将每个页面header添加token
     if (window.sessionStorage.getItem("token")) {
       config.headers.Authorization = window.sessionStorage.getItem("token");
+     
     }
     return config
   }, 

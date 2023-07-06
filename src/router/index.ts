@@ -24,6 +24,16 @@ const router = createRouter({
           component:() => import("@/views/DetailView.vue")
         },
         {
+          name:"requestsdetail",
+          path:"/requestsdetail",
+          component:() => import("@/views/RequestsDetailView.vue")
+        },
+        {
+          name:"kdetail",
+          path:"/kdetail",
+          component:() => import("@/views/KdetailView.vue")
+        },
+        {
           name:"index",
           path:"index",
           component:() => import("@/views/HomepageView.vue")
@@ -45,11 +55,6 @@ const router = createRouter({
         },
         
         {
-          name:"guidence",
-          path:"guidance",
-          component:() => import("@/views/HomeView/GuidanceView.vue")
-        },
-        {
           name:"goshop",
           path:"shoppingcart",
           component:() => import("@/views/HomeView/ShoppingCartView.vue")
@@ -57,7 +62,7 @@ const router = createRouter({
         {
           name:"guidence",
           path:"guidance",
-          component:() => import("@/views/HomeView/GuidanceView.vue")
+          component:() => import("@/views/GuidanceView.vue")
         },
         {
           name:"UserDetial",

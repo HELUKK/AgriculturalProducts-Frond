@@ -9,7 +9,7 @@
         </NavigationBar>
        </el-header>
       <el-container>
-        <el-aside >
+        <el-aside style="width: 20%;">
           <NavigationAside>
 
           </NavigationAside>
