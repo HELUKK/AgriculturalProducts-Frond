@@ -1,148 +1,135 @@
 <template>
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column label="Date" width="180">
+      <el-table-column label="用户名" width="180">
         <template #default="scope">
           <div style="display: flex; align-items: center">
-            <el-icon><timer /></el-icon>
-            <span style="margin-left: 10px">{{ scope.row.date }}</span>
+            <span style="margin-left: 10px">{{ scope.row.userName }}</span>
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="Name" width="180">
+      <el-table-column label="昵称" width="180">
         <template #default="scope">
-          <el-popover effect="light" trigger="hover" placement="top" width="auto">
-            <template #default>
-              <div>name: {{ scope.row.name }}</div>
-              <div>address: {{ scope.row.address }}</div>
-            </template>
-            <template #reference>
-              <el-tag>{{ scope.row.name }}</el-tag>
-            </template>
-          </el-popover>
+          <div style="display: flex; align-items: center">
+            <span style="margin-left: 10px">{{ scope.row.nickName }}</span>
+          </div>
         </template>
       </el-table-column>
-      <el-table-column label="Operations">
+      <el-table-column label="身份证号" width="180">
         <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+          <div style="display: flex; align-items: center">
+            <span style="margin-left: 10px">{{ scope.row.identityNum }}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="角色" width="180">
+        <template #default="scope">
+          <div style="display: flex; align-items: center">
+            <span style="margin-left: 10px">{{ scope.row.role }}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="电话" width="180">
+        <template #default="scope">
+          <div style="display: flex; align-items: center">
+            <span style="margin-left: 10px">{{ scope.row.phone }}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="地址" width="180">
+        <template #default="scope">
+          <div style="display: flex; align-items: center">
+            <span style="margin-left: 10px">{{ scope.row.address }}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建日期" width="180">
+        <template #default="scope">
+          <div style="display: flex; align-items: center">
+            <el-icon><timer /></el-icon>
+            <span style="margin-left: 10px">{{ scope.row.createTime }}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="修改日期" width="180">
+        <template #default="scope">
+          <div style="display: flex; align-items: center">
+            <el-icon><timer /></el-icon>
+            <span style="margin-left: 10px">{{ scope.row.updateTime }}</span>
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="操作">
+        <template #default="scope">
+          <el-button size="small" @click="handleEdit(scope.row)"
             >Edit</el-button
           >
           <el-button
             size="small"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
+            @click="handleDelete(scope.row)"
             >Delete</el-button
           >
         </template>
       </el-table-column>
     </el-table>
+    <Edit ref="editRef" @on-updata="getList"/>
 </template>
   
   
 <script lang="ts" setup>
   import { Timer } from '@element-plus/icons-vue'
+  import {User} from '@/dataource/Types'
+  import {userStore} from '@/stores/user'
+  import { onMounted, ref } from 'vue';
+  import Edit from '@/components/EditView.vue'
+
+  //取出user用户
+  let storedData = window.sessionStorage.getItem('users')
+   if(storedData!=null){
+    console.log('users存在');
+   }else{
+    const users:User[] =[{}]
+    storedData = JSON.stringify(users)
+    console.log('users不存在');
+  }
+  const userData = JSON.parse(storedData)
+  console.log(userData);
   
-  interface User {
-    date: string
-    name: string
-    address: string
+
+  const user = userStore()
+  const tableData: User[] = userData
+
+  //初始更新用户数据
+  onMounted(async() =>{
+    await user.selectAllUser()
+  })
+  
+
+  //编辑页面绑定
+  const editRef = ref()
+  const handleEdit = (row:User) => {
+    console.log(row)
+
+    //打开页面并传入数据双向绑定
+    editRef.value.open(row)
+    // user.updateUserByUsername(userName)
+  }
+
+  
+  //删除
+  const handleDelete = async(row: User) => {
+    console.log(row)
+    if(row.userName){
+        await user.deleteUserByUsername(row.userName)
+    }else{
+        console.log('userName不存在');
+    }
+    getList()
   }
   
-  const handleEdit = (index: number, row: User) => {
-    console.log(index, row)
+  //每次update重新获取用户数据
+  const getList = async()=>{
+    await user.selectAllUser()
   }
-  const handleDelete = (index: number, row: User) => {
-    console.log(index, row)
-  }
-  
-  const tableData: User[] = [
-    {
-      date: '2016-05-03',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-02',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-04',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-01',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-  ]
-// import {User} from '@/dataource/Types'
-// import {userStore} from '@/stores/user'
-// import { ref } from 'vue';
-// const user = userStore()
-// const userData = ref(user.users) 
-
-
-//  methods: {
-
-//    managerChangeInfo(userName) {
-//      this.dialogFormVisible = true;
-//      selectUserByUsername({
-//        user_name: userName,
-//      }).then((res) => {
-//        this.updateUserData = res.data;
-//      });
-//    },
-//    deleteUserNameClick(deleteUserName) {
-//      this.deleteUserName = deleteUserName;
-//      this.dialogVisible = true;
-//    },
-//    managerDeleteUser(userName) {
-//       this.dialogVisible = false;
-//      deleteUserByUsername({
-//        user_name: userName,
-//      }).then((res) => {
-//        if (res.flag == true) {
-//          alert(res.message);
-//          this.reload();
-//        } else {
-//          alert(res.data);
-//        }
-//       });
-//    },
-//    submitCHangeInfo() {
-//      this.dialogFormVisible = false;
-//      updateUserByUsername({
-//        user_name: this.updateUserData.userName,
-//        nickName: this.updateUserData.nickName,
-//        identityNum: this.updateUserData.identityNum,
-//        phone: this.updateUserData.phone,
-//        address: this.updateUserData.address,
-//        role: this.updateUserData.role,
-//      }).then((res) => {
-//          if (res.flag == true) {
-//            alert(res.message);
-//             this.reload();
-//          } else {
-//            alert(res.data);
-//          }
-//        })
-//        .catch((err) => {
-//          alert("修改失败");
-//        });
-//    },
-//   },
-//  created() {
-//    this.$store.commit("updateUserActiveIndex", "5");
-//      selectAllUserPage({
-//        pageNum:this.usersCount,
-//      }).then((res) => {
-//        this.userData = res.data.list;
-//        this.total = res.data.total;
-//      })
-//      .catch((err) => {
-//        console.log(err);
-//      });
-//   },
-// };
 </script>
