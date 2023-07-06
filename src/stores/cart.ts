@@ -5,6 +5,7 @@ import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
 import { checkCartAPI,addCartAPI,deleteCartAPI,updateCartAPI } from  '@/apis/cart'
 import { ref } from 'vue';
+import path from 'path';
 
 export  const useCartStore = defineStore('cartStore', {
     state: () => ({
@@ -78,7 +79,12 @@ export  const useCartStore = defineStore('cartStore', {
             alert("修改成功")
         }
     }
- }
+ },
+//  persist: {
+//     key: 'tMoney',
+//     storage: localStorage,
+//     paths: ['tMoney']
+//  }
 
 })
 
