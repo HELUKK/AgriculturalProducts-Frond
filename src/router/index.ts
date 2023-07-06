@@ -82,7 +82,7 @@ const router = createRouter({
         {
           name:"UserDetial",
           path:"UserDetial",
-          component:() => import("@/views/UserDetialView.vue")
+          component:() => import("@/views/HomeView/UserDetialView.vue")
         },
         {
           name:"MyQuestion",
