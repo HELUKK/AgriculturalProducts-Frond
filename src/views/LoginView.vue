@@ -27,9 +27,9 @@
         <el-input v-model="store.user.password" type="password" autocomplete="off" placeholder="密码" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="login">登录</el-button
+        <el-button type="primary" @click="login" class="bbbb1">登录</el-button
         >
-        <el-button type="success"  @click="regit">注册</el-button>
+        <el-button type="success"  @click="regit" class="bbbb2">注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -118,7 +118,19 @@ const handleClose = (done: () => void) => {
   </script>
 
   
-  <style >
+  <style  scoped>
+  .bbbb1{
+     width: 5vw;
+     position: absolute;
+     top: 5vh;
+     right: 10vw;
+  }
+  .bbbb2{
+     width: 5vw;
+     position: absolute;
+     top: 5vh;
+     right: 4vw;
+  }
 .ddd{
   background-color: rgba(255, 255, 255,0.7);
   }
@@ -126,10 +138,9 @@ const handleClose = (done: () => void) => {
     position: fixed;
     top: 10vh;
     left: 45vh;
-    width: 750px;
-    height: 400px;
+    width: 50vw;
+    height: 53vh;
     padding-top: 0px;
-    border: 0px solid rgb(151, 231, 58);
     background-color: rgba(255, 255, 255,0.7);
     border-radius: 10px;
 }
