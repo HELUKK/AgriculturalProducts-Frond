@@ -37,8 +37,9 @@ export  const userStore = defineStore('userStore', {
             //   console.log("user:"+this.user);
               //将user存入sessionStorage
               window.sessionStorage.setItem("user",JSON.stringify(this.user))
+              window.location.reload()
           } catch {        // 
-            console.log('登录后返回用户所有属性');
+            console.log('登录后返回用户所有属性失效');
          }
             
         },
