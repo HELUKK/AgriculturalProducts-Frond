@@ -37,8 +37,9 @@ export  const userStore = defineStore('userStore', {
             //   console.log("user:"+this.user);
               //将user存入sessionStorage
               window.sessionStorage.setItem("user",JSON.stringify(this.user))
+              window.location.reload()
           } catch {        // 
-            console.log('登录后返回用户所有属性');
+            console.log('登录后返回用户所有属性失效');
          }
             
         },
@@ -89,27 +90,6 @@ export  const userStore = defineStore('userStore', {
       console.log('deleteUserByUsername失效');
    }
    },
-
-
-   //更新问答
-   async updateQuestion(){
-        try {
-          const resp = await axios({
-          method:'put',
-          url:'question/updateQuestion'
-        })
-        if(resp.data.code==20001){
-          alert(resp.data.message+","+resp.data.data)
-        }else{
-          alert('我的问答信息更新成功')
-        }
-        console.log(resp.data.message)
-        console.log('updateQuestion已运行结束');
-    } catch {
-      console.log('updateQuestion失效');
-    }
-   },
-
    //根据用户名更新用户信息
    async  updateUserByUsername(user:User){
     console.log('updateUserByUsername已运行');

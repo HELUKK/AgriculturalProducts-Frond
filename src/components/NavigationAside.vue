@@ -56,7 +56,7 @@
                               <span>个人中心</span>
                             </template>
                             <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
-                            <el-menu-item index="/UserManage" @click="shuaxin">用户管理</el-menu-item>
+                            <el-menu-item index="/UserManage" v-if="user.role=='admin'">用户管理</el-menu-item>
                             <el-menu-item index="/home/MyKnowledge">我的发布</el-menu-item>
                             <el-menu-item index="/home/MyKnowledge">我的需求</el-menu-item>
                             <el-menu-item index="/home/mypublicG">我的商品</el-menu-item>
@@ -72,7 +72,7 @@
 
                           </el-sub-menu>
                       
-                      <el-menu-item index="1-2">关于我们</el-menu-item>
+                      <el-menu-item index="/aboutUs">关于我们</el-menu-item>
                     
                 </el-sub-menu>
             </el-menu>
@@ -88,10 +88,26 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 
-const shuaxin = ()=>{
-  setTimeout(()=>{
-    window.location.reload()
-  },100)
-}
+//鉴权
+import type{User} from '@/dataource/Types'
+import router from '@/router';
+    //取出user用户
+    let storedData = window.sessionStorage.getItem('user')
+    if(storedData!=null){
+     console.log('user存在');
+    }else{
+     const user:User = {
+     avatar:'',
+     nickName:'',
+     phone:'',
+     identityNum:'',
+     address:'',
+     userName:'',
+     realName:''
+     }
+     storedData = JSON.stringify(user)
+     console.log('user不存在');
+   }
+   const user = JSON.parse(storedData)
 </script>
 <style></style>

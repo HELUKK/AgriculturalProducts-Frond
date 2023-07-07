@@ -3,11 +3,17 @@
       <el-table-column type="expand">
         <template #default="props">
           <div m="4">
-         <p m="t-0 b-2">专家姓名：{{ props.row.expertName }}</p>
-          <p m="t-0 b-2">专家电话：{{ props.row.phone }}</p>
+         <p m="t-0 b-2" v-if="user.role=='user'">专家姓名：{{ props.row.expertName }}</p>
+         <p m="t-0 b-2" v-else>提问者姓名：{{ props.row.questioner }}</p>
+          <p m="t-0 b-2" v-if="user.role=='expert'">提问者电话：{{ props.row.phone }}</p>
           <p m="t-0 b-2" v-if="props.row.answer!=null&&props.row.answer.length!=0">问题状态: <el-tag class="ml-2" type="success">已回答</el-tag></p>
           <p ma="t-0 b-2" v-else>问题状态: <el-tag class="ml-2" type="danger">未回答</el-tag></p>
-          <p m="t-0 b-2" v-if="props.row.answer!=null&&props.row.answer.length!=0">回答: {{ props.row.answer }}</p>
+          <div v-if="user.role=='user'" >
+            <p m="t-0 b-2" v-if="props.row.answer!=null&&props.row.answer.length!=0">专家回答: {{ props.row.answer }}</p>
+          </div>
+          <div v-else>
+            <p m="t-0 b-2" >我的回答: {{ props.row.answer }}</p>
+          </div>
         
         </div>
         </template>
@@ -19,14 +25,9 @@
 
       <el-table-column
       prop="tag"
-      label="Tag"
+      label="回答状态"
       width="100"
-      :filters="[
-        { text: '已回答', value: 'Home' },
-        { text: '未回答', value: 'Office' },
-      ]"
-      :filter-method="filterTag"
-      filter-placement="bottom-end"
+
     >
       <template #default="scope">
         <el-tag
@@ -109,7 +110,7 @@
       usestore.deleteQuestion(usestore.userquestions[index].id)
         ElMessage({
         type: 'success',
-        message: `退选成功`,
+        message: `删除成功`,
       })
       location.reload();
       console.log('刷新成功')
@@ -117,7 +118,7 @@
     .catch(() => {
       ElMessage({
         type: 'info',
-        message: '取消退选',
+        message: '取消删除',
       })
     })
   }
