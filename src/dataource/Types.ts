@@ -97,3 +97,20 @@ role: any
         "answer": string,
         "status": number
 }
+
+//预约信息
+export interface Reserve{
+    id?:number
+    expertName?:string
+    questioner?:string
+    area?:string
+    address:string
+    plantName:string
+    soilCondition:string
+    plantCondition?:string
+    plantDetail:string
+    message?:string
+    answer?:string
+    status?:number
+    phone?:string
+}

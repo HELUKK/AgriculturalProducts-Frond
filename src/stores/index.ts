@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
-import type { Know,ResultVO,Question,Discuss, User,Good,Expert } from '@/dataource/Types';
+import type { Know,ResultVO,Question,Discuss, User,Good,Expert,Reserve } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
 export  const useStore = defineStore('useStore', {
@@ -29,6 +29,7 @@ export  const useStore = defineStore('useStore', {
         userquestions:[] as Question[],//个人的问答列表
         ename:'' as string,//专家名字
         publicType:"",//发布类型
+        reserves:[] as Reserve[]
     }),
 
    actions:{
@@ -88,6 +89,49 @@ export  const useStore = defineStore('useStore', {
             open("预约失败")
          }
         },
+
+    //查找预约
+    async searchReserve(role:string){
+        console.log('if前')
+        if(role=='user'){
+            try {
+                console.log('查询前')
+                const resp = await axios({
+                method:'get',
+                url:'reserve/selectReserveByNowUser/'+'questioner'
+             })
+                console.log(resp.data.message)
+                console.log(resp.data.data)
+              this.reserves = resp.data.data
+               this.qtotal = resp.data.data.total
+            } catch {        // 
+            }
+        }
+        else{
+            try {
+                const resp = await axios({
+                method:'get',
+                url:'reserve/selectReserveByNowUser/'+'answerer'
+             })
+               this.reserves = resp.data.data.list
+               this.qtotal = resp.data.data.total
+            } catch {        // 
+            }  
+        }
+        console.log('if后')
+    },
+
+    //删除预约
+    async deleteServe(id:number){
+        try {
+            const resp = await axios({
+            method:'delete',
+            url:'reserve/deleteReserveById/'+id
+         })
+           console.log('删除成功')
+        } catch {        // 
+        }  
+    },
     //添加提问
     async addQuetion(form:{ 
     title:string,
