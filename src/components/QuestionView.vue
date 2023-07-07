@@ -2,7 +2,7 @@
     <el-dialog v-model="dialogVisible" title="用户信息" width="400px">
       <el-form label-width="80px">
         <el-form-item label="标题：">
-          <el-input disabled placeholder="请输入标题" v-model="from.title"/>
+          <el-input v-bind:disabled="flag" placeholder="请输入标题" v-model="from.title"/>
         </el-form-item>
         <el-form-item label="内容：">
           <el-input type="textarea" v-bind:disabled="flag" placeholder="请输入内容" v-model="from.question"/>
@@ -67,10 +67,7 @@ const emit = defineEmits(['on-updata'])
 const user = userStore()
 //点击更新按钮,更新数据,关闭弹窗通知父页面更新列表数据
 const onUpdata = async()=>{
-
-  usestore.userquestions[index2.value].question=from.value.question
-  usestore.userquestions[index2.value].answer=from.value.answer
-  await user.updateQuestion()
+  usestore.userquestions[index2.value]=from.value
   dialogVisible.value = false
   emit('on-updata')
 }

@@ -111,13 +111,12 @@ import { onMounted } from 'vue';
      console.log('user不存在');
    }
    const user = JSON.parse(storedData)
-   
+
 //点击后自动刷新页面
 const shuaxin = ()=>{
-  console.log(user.role)
-  //   setTimeout(()=>{
-  //   window.location.reload()
-  // },100)
+    setTimeout(()=>{
+    window.location.reload()
+  },100)
 }
 </script>
 <style></style>
