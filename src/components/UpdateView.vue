@@ -3,7 +3,6 @@
     ref="ruleFormRef"
     :model="ruleForm"
     :rules="rules"
-    scroll-to-error="true"
     label-width="120px"
     class="demo-ruleForm"
     :size="formSize"
@@ -12,13 +11,13 @@
   <el-form-item label="picture" prop="picture">
     <el-input v-model="ruleForm.picture" />
     </el-form-item>
-    <el-form-item label="type"  prop="type">
+    <el-form-item label="type" prop="type">
       <el-select v-model="ruleForm.type" placeholder="please select your type">
         <el-option label="商品" value="goods" />
         <el-option label="需求" value="needs" />
       </el-select>
     </el-form-item>
-    <el-form-item label="statu"  prop="orderStatu">
+    <el-form-item label="statu" prop="statu">
       <el-select v-model="ruleForm. orderStatu" placeholder="please select your statu">
         <el-option label="0" value=0 />
         <el-option label="1" value=1 />
@@ -74,15 +73,15 @@ const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<RuleForm>({
   type:"",
   orderStatu:0,
-  title: '标题',
-  price: 0,
-  content: '',
-  picture:"输入图片链接"
+  title: store.good.title,
+  price: store.good.price,
+  content:store.good.content,
+  picture:store.good.picture
 })
 
 const rules = reactive<FormRules<RuleForm>>({
   type: [
-    { required: true, message: 'Please input type', trigger: 'submit' },
+    { required: true, message: 'Please input type', trigger: 'blur' },
 
   ],
   orderStatu: [
@@ -112,7 +111,7 @@ const rules = reactive<FormRules<RuleForm>>({
 })
 
 const submitForm = () => {
-      store.addPublicPG(ruleForm)
+      store.changeMygoods(ruleForm)
 }
 
 const resetForm = (formEl: FormInstance | undefined) => {

@@ -29,10 +29,45 @@ export  const useStore = defineStore('useStore', {
         userquestions:[] as Question[],//个人的问答列表
         ename:'' as string,//专家名字
         publicType:"",//发布类型
-        reserves:[] as Reserve[]
+        reserves:[] as Reserve[],
+        good:{ } as Good,//指定商品
+        myType:"" as string//我的页面类型
     }),
 
    actions:{
+    //修改我的商品
+    async changeMygoods(form:{type:string
+        orderStatu:number
+        picture:string
+        title: string
+        price:number
+        content: string}){
+        try {
+             const resp = await axios({
+             method:'put',
+             url:'order/'+this.good.orderId,
+             data:form
+          })
+            open(resp.data.message)
+      } catch {        // 
+     }
+    },
+    //修改页面跳转
+     updateMyg(id:number){
+      this.good = this.goods.find(g=>g.orderId == id) as Good
+      router.push("/handleUp")
+     },
+    //删除我的商品
+    async deleMygoods(id:number){
+        try {
+             const resp = await axios({
+             method:'delete',
+             url:'order/'+id
+          })
+            open(resp.data.message)
+      } catch {        // 
+     }
+    },
     //添加商品
     async addPublicPG(form:{ 
         type:string
@@ -53,6 +88,18 @@ export  const useStore = defineStore('useStore', {
                 open("添加失败")
              }
             },
+    //加载我的需求
+    async loadMyneedss(page:number){
+        try {
+             const resp = await axios({
+             method:'get',
+             url:'order/searchAllMyNeeds/'+page
+          })
+            this.sgoods = resp.data.data.list
+            this.stotal = resp.data.data.total
+      } catch {        // 
+     }
+    },
     //加载我的商品
     async loadMygoods(page:number){
         try {
@@ -417,7 +464,7 @@ export  const useStore = defineStore('useStore', {
            if(this.flag == true)
            {this.token = resp.data.data
            this.message = resp.data.message
-           open(this.message)
+           alert(this.message)
 
          }
          else{
