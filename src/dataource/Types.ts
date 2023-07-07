@@ -24,6 +24,12 @@ export interface Userinfo {
     realName?: String
 }
 
+export interface RePassword {
+    nowPassword?:String
+    newPassword1?:String
+    newPassword2?:String
+}
+
 export interface Expert{
         userName: string,
         realName: string,

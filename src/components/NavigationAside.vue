@@ -57,8 +57,7 @@
                             </template>
                             <el-menu-item index="/home/UserDetial">个人基本信息</el-menu-item>
                             <el-menu-item index="/UserManage" v-if="user.role=='admin'">用户管理</el-menu-item>
-                            <el-menu-item index="/home/MyKnowledge">我的发布</el-menu-item>
-                            <el-menu-item index="/home/MyKnowledge">我的需求</el-menu-item>
+                            <el-menu-item index="/home/RePassword">修改密码</el-menu-item>
                             <el-menu-item index="/home/mypublicG">我的商品</el-menu-item>
                             </el-sub-menu>
                           <el-sub-menu index="2">
@@ -68,7 +67,6 @@
 
                             <el-menu-item index="/home/MyQuestion">我的问答</el-menu-item>
                             <el-menu-item index="/home/myappointmennt">我的预约</el-menu-item>
-                            <el-menu-item index="/home/MyKnowledge">我的知识</el-menu-item>
 
                           </el-sub-menu>
                       

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
-import type { User,Userinfo } from '@/dataource/Types';
+import type { RePassword, User,Userinfo } from '@/dataource/Types';
 import { log } from 'console';
 export  const userStore = defineStore('userStore', {
     state: () => ({
@@ -58,6 +58,26 @@ export  const userStore = defineStore('userStore', {
           console.log('根据用户名更新用户信息失效');
        }
           
+      },
+      //密码更新
+      async updatePassword(repass:RePassword){
+        console.log('updatePassword已运行');
+        try {
+              const resp = await axios({
+               method:'post',
+               data:repass,
+               url:'user/updatePassword'
+            })
+            console.log('updatePassword已运行结束');
+            if(resp.data.code==20000){
+              alert('密码更新成功!')
+            }else {
+              alert('密码修改失败'+resp.data.data)
+            }
+            //
+        } catch {
+          console.log('updatePassword失效');
+       }
       },
       //管理员:
       //根据用户名查询用户信息

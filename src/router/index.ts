@@ -117,9 +117,9 @@ const router = createRouter({
           component:() => import("@/views/MyAppointment.vue")
         },
         {
-          name:"MyKnowledge",
-          path:"MyKnowledge",
-          component:() => import("@/views/MyKnowledge.vue")
+          name:"RePassword",
+          path:"RePassword",
+          component:() => import("@/views/RePassword.vue")
         }
       ]
     },
