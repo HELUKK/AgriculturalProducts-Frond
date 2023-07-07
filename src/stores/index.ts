@@ -26,18 +26,95 @@ export  const useStore = defineStore('useStore', {
         question:{} as Question,//指定问题
         experts:[] as Expert[],//专家列表
         etotal:0 as number,//专家总数
+        userquestions:[] as Question[],//个人的问答列表
+        ename:'' as string,//专家名字
+        publicType:"",//发布类型
     }),
 
    actions:{
-    //加载专家列表
-    async loadExperts(page:number){
+    //添加商品
+    async addPublicPG(form:{ 
+        type:string
+        orderStatu:number
+        picture:string
+        title: string
+        price:number
+        content: string}){
+                try {
+                     const resp = await axios({
+                     method:'post',
+                     url:'order',
+                     data:form
+                  })
+                   open(resp.data.message)
+        
+              } catch {        
+                open("添加失败")
+             }
+            },
+    //加载我的商品
+    async loadMygoods(page:number){
         try {
              const resp = await axios({
              method:'get',
-             url:'question/findAllExpert/'+page
+             url:'order/searchAllMyGoods/'+page
           })
-           this.experts = resp.data.data.list
-            this.etotal = resp.data.data.total
+            this.goods = resp.data.data.list
+            this.gtotal = resp.data.data.total
+      } catch {        // 
+     }
+    },
+    //添加预约
+    async addAppoint(form:{ 
+    phone:string,
+    soilCondition:string,
+    plantCondition:string,
+    plantDetail:string,
+    plantName:string,
+    address:string,
+    area:string,
+    status:number,
+    expertName:string,}){
+            try {
+                console.log(window.sessionStorage.getItem("token"))
+                 const resp = await axios({
+                 method:'post',
+                 url:'reserve/addReserve',
+                 data:form
+              })
+               open(resp.data.message)
+    
+          } catch {        
+            open("预约失败")
+         }
+        },
+    //添加提问
+    async addQuetion(form:{ 
+    title:string,
+    plantName:string,
+    phone:string,
+    expertName:string,
+    status:number,
+    question:string}){
+        try {
+             const resp = await axios({
+             method:'post',
+             url:'question/add',
+             data:form
+          })
+           open(resp.data.message)
+
+      } catch {        // 
+     }
+    },
+    //加载专家列表
+    async loadExperts(){
+        try {
+             const resp = await axios({
+             method:'get',
+             url:'user/searchAllExpert'
+          })
+            this.experts = resp.data.data
       } catch {        // 
      }
     },
@@ -45,6 +122,7 @@ export  const useStore = defineStore('useStore', {
     findQ(id:number){
        this.question= this.questions.find(q=>q.id==id) as Question
     },
+
     //检索问题
     async selectQuestions(params:{pageNum:number,keys:string}) {
         if(params.keys===''){
@@ -75,6 +153,51 @@ export  const useStore = defineStore('useStore', {
             }
         }
     },
+
+    //加载个人的问题
+    async loaduserQuestions(role:string){
+        console.log('if前')
+        if(role=='user'){
+            try {
+                console.log('查询前')
+                const resp = await axios({
+                method:'get',
+                url:'question/selectQuestionByNow/'+'questioner'
+             })
+                console.log(resp.data.message)
+                console.log(resp.data.data)
+              this.userquestions = resp.data.data
+               this.qtotal = resp.data.data.total
+            } catch {        // 
+            }
+        }
+        else{
+            try {
+                const resp = await axios({
+                method:'get',
+                url:'question/selectQuestionByNow/'+'answerer'
+             })
+               this.questions = resp.data.data.list
+               this.qtotal = resp.data.data.total
+            } catch {        // 
+            }  
+        }
+        console.log('if后')
+    },
+
+    //根据问题id删除问题
+    async deleteQuestion(id:number){
+        try {
+            const resp = await axios({
+            method:'delete',
+            url:'question/deleteQuestionById/'+id
+         })
+           console.log('删除成功')
+           router.push('/home/MyQuestion')
+        } catch {        // 
+        }  
+    },
+
    //问答加载
      async loadQuestions(page:number){
         try {

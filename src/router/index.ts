@@ -19,6 +19,26 @@ const router = createRouter({
       redirect:'/home/index',
       children:[
         {
+          name:"handlePG",//发布商品
+          path:"/handlePG",
+          component:() => import("@/components/PublishMessage.vue")
+        },
+        {
+          name:"mypublicG",//我的商品
+          path:"mypublicG",
+          component:() => import("@/views/PublishedMessage.vue")
+        },
+        {
+          name:"handlea",//预约
+          path:"handlea",
+          component:() => import("@/views/AppointView.vue")
+        },
+        {
+          name:"handleq",//提问
+          path:"handleq",
+          component:() => import("@/views/QuestionView.vue")
+        },
+        {
           name:"quesd",//问答详情
           path:"quesd",
           component:() => import("@/components/QuesView.vue")
@@ -74,7 +94,27 @@ const router = createRouter({
           path:"UserDetial",
           component:() => import("@/views/HomeView/UserDetialView.vue")
         },
+        {
+          name:"MyQuestion",
+          path:"MyQuestion",
+          component:() => import("@/views/MyQuestionView.vue")
+        },
+        {
+          name:"myappointmennt",
+          path:"MyAppointmennt",
+          component:() => import("@/views/MyAppointment.vue")
+        },
+        {
+          name:"MyKnowledge",
+          path:"MyKnowledge",
+          component:() => import("@/views/MyKnowledge.vue")
+        }
       ]
+    },
+    {
+      name:"UserManage",
+      path:"/UserManage",
+      component: () => import ("@/views/HomeView/UserManageView.vue")
     }
   ]
 })

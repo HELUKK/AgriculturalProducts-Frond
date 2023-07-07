@@ -13,6 +13,17 @@ export interface User {
     avatar?:String
     realName?: String
 }
+
+export interface Userinfo {
+    userName?:String
+    nickName?: String
+    phone?:String
+    identityNum?:String
+    address?:String
+    avatar?:String
+    realName?: String
+}
+
 export interface Expert{
         userName: string,
         realName: string,
@@ -71,6 +82,11 @@ export interface cartInfo{
 }
 
 export interface Question{
+userName: any
+nickName: any
+identityNum: any
+address: any
+role: any
         "id": number,
         "expertName": string,
         "questioner": string,
