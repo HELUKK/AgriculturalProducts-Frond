@@ -52,12 +52,16 @@ export  const userStore = defineStore('userStore', {
                data:user,
                url:'user/loginUpdateByUsername'
             })
+            console.log(resp.data)
             console.log('loginUpdateByUsername已运行结束');
-            alert('用户信息更新成功!')
+            if(resp.data.code==20000){
+              alert('用户信息更新成功!')
+            }else{
+              alert(resp.data.message+","+resp.data.data)
+            }
         } catch {
           console.log('根据用户名更新用户信息失效');
        }
-          
       },
       //密码更新
       async updatePassword(repass:RePassword){
@@ -72,7 +76,7 @@ export  const userStore = defineStore('userStore', {
             if(resp.data.code==20000){
               alert('密码更新成功!')
             }else {
-              alert('密码修改失败'+resp.data.data)
+              alert('密码修改失败,'+resp.data.data)
             }
             //
         } catch {

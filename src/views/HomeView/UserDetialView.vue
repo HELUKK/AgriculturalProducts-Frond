@@ -65,8 +65,13 @@
     })
     
     const updateInfo = async()=>{
-     await use.loginUpdateByUsername(userinfo);
-     use.loginSelectByUsername();
+      if(userinfo.address&&userinfo.identityNum&&userinfo.nickName&&userinfo.phone&&userinfo.userName){
+        await use.loginUpdateByUsername(userinfo);
+        use.loginSelectByUsername();
+      }else{
+        alert('请补全信息后修改')
+      }
+     
     }
  </script>
     
