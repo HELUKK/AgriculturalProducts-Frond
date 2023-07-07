@@ -114,3 +114,11 @@ export interface Reserve{
     status?:number
     phone?:string
 }
+export interface Address{
+    "id":number,
+    "ownName":string,
+    "consignee":string,
+    "phone":string,
+    "addressDetail":string,
+    "isDefault":boolean
+}
