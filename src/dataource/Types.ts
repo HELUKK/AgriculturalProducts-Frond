@@ -97,3 +97,12 @@ role: any
         "answer": string,
         "status": number
 }
+
+export interface Address{
+    "id":number,
+    "ownName":string,
+    "consignee":string,
+    "phone":string,
+    "addressDetail":string,
+    "isDefault":boolean
+}
