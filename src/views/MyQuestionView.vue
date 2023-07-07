@@ -110,7 +110,7 @@
       usestore.deleteQuestion(usestore.userquestions[index].id)
         ElMessage({
         type: 'success',
-        message: `退选成功`,
+        message: `删除成功`,
       })
       location.reload();
       console.log('刷新成功')
@@ -118,7 +118,7 @@
     .catch(() => {
       ElMessage({
         type: 'info',
-        message: '取消退选',
+        message: '取消删除',
       })
     })
   }
