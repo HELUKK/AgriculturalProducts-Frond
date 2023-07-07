@@ -35,14 +35,13 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '@/stores';
+import { useknowStore } from '@/stores/know';
 import type { Discuss,  Know } from '@/dataource/Types';
-import { ref ,watch} from 'vue';
-import  { ElMessage,ElMessageBox } from "element-plus"
-import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
+import  { ElMessageBox } from "element-plus"
 
 
-const store = useStore()
+const store = useknowStore()
 const data = ref<Know>()
 const content = ref('')
 const discusslist = ref<Discuss[]>([])
