@@ -61,7 +61,7 @@ export  const useCartStore = defineStore('cartStore', {
         console.log(res.data.code)
         this.myCart = res.data.data
         if(res.data.code == 20000) {
-            window.location.reload();
+            //window.location.reload();
             open("添加成功")
             
         }
