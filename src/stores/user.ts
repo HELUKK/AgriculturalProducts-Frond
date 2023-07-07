@@ -83,33 +83,14 @@ export  const userStore = defineStore('userStore', {
         })
         console.log(resp.data)
         alert('用户删除成功')
+        //删除成功后自动刷新页面
+        window.location.reload()
         console.log(resp.data.message)
         console.log('deleteUserByUsername已运行结束');
     } catch {
       console.log('deleteUserByUsername失效');
    }
    },
-
-
-   //更新问答
-   async updateQuestion(){
-        try {
-          const resp = await axios({
-          method:'put',
-          url:'question/updateQuestion'
-        })
-        if(resp.data.code==20001){
-          alert(resp.data.message+","+resp.data.data)
-        }else{
-          alert('我的问答信息更新成功')
-        }
-        console.log(resp.data.message)
-        console.log('updateQuestion已运行结束');
-    } catch {
-      console.log('updateQuestion失效');
-    }
-   },
-
    //根据用户名更新用户信息
    async  updateUserByUsername(user:User){
     console.log('updateUserByUsername已运行');
@@ -123,6 +104,8 @@ export  const userStore = defineStore('userStore', {
         alert(resp.data.message+","+resp.data.data)
       }else{
         alert('用户信息更新成功')
+        //更新成功后自动刷新页面
+        window.location.reload()
       }
       console.log(resp.data.message)
       console.log('updateUserByUsername已运行结束');
