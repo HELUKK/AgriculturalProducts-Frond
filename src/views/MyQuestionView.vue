@@ -19,14 +19,9 @@
 
       <el-table-column
       prop="tag"
-      label="Tag"
+      label="回答状态"
       width="100"
-      :filters="[
-        { text: '已回答', value: 'Home' },
-        { text: '未回答', value: 'Office' },
-      ]"
-      :filter-method="filterTag"
-      filter-placement="bottom-end"
+
     >
       <template #default="scope">
         <el-tag
