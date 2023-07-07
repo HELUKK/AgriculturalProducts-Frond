@@ -82,6 +82,11 @@ export interface cartInfo{
 }
 
 export interface Question{
+userName: any
+nickName: any
+identityNum: any
+address: any
+role: any
         "id": number,
         "expertName": string,
         "questioner": string,
