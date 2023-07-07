@@ -117,7 +117,6 @@
        console.log("被调用了")
    }
    const logout= () => {
-  
      store.logout();
      open("注销成功")
    }
@@ -144,6 +143,10 @@
     //初始更新用户数据
     onMounted(async() =>{
       await user.selectAllUser()
+      if (window.location.href.indexOf("#reloaded") == -1) {
+        window.location.href = window.location.href + "#reloaded";
+        window.location.reload();
+    }
     })
     
     //编辑页面绑定
