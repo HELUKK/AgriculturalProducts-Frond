@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import axios from '@/axios';
 import type { Know,Discuss } from '@/dataource/Types';
 import router from '@/router';
+import { ref } from 'vue';
 export const useknowStore = defineStore('knowStore',{
     state:()=>({
         message: '' as string,//后端返回信息    
@@ -49,6 +50,7 @@ export const useknowStore = defineStore('knowStore',{
         //详情页
         kdetail(id:number){
             this.detailid = id;
+            
             router.push('/kdetail')
          }, 
         //添加评论
@@ -72,6 +74,21 @@ export const useknowStore = defineStore('knowStore',{
             }catch{
                 console.log("添加失败");
             }
+        },
+        // 删除
+        async deleteKnow(id: number){
+            try {
+                const resp = await axios({
+                 method:'delete',
+                 url:'knowledge/'+id
+              })
+              console.log(resp.data)
+              alert('删除成功')
+              console.log(resp.data.message)
+              console.log('delete已运行结束');
+          } catch {
+            console.log('delete失效');
+         }
         }
     }
 })

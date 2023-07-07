@@ -6,8 +6,7 @@
             <el-icon size="30px" id="ic" color="rgb(151, 231, 58)" ><ShoppingCart /></el-icon>
             <h2 id="h">农业知识界面</h2>
             <div class="buttonp">
-            <el-button style="text-align: center;"  type="success"  @click="regit">添加农业知识</el-button>
-            <el-button style="text-align: center;"  type="success">删除农业知识</el-button>
+            <!-- <el-button style="text-align: center;"  type="success"  @click="regit">添加农业知识</el-button> -->
             </div>
         </div>
         </el-header>
@@ -78,7 +77,7 @@
   <script lang="ts" setup>
   import {  onMounted, reactive, ref, watch } from 'vue'
   import { useknowStore } from '@/stores/know';
-  import  { ElMessageBox } from "element-plus"
+  import  { ElMessage, ElMessageBox } from "element-plus"
   const store = useknowStore();
   const page = ref(store.page)
   const drawer = ref(false)

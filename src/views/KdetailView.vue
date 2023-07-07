@@ -6,7 +6,7 @@
       <span style="margin-right:20px;">{{data?.ownName}}</span>
       <span>日期：</span>
       <span>{{data?.updateTime}}</span>
-    </div>
+      </div>
     <div class="detail-img">
       <!-- <video v-if="updateInfo.type==='mp4'||updateInfo.type==='MP4'" id="video" width="900" height="360" :src="$store.state.imgShowRoad + '/file/' + updateInfo.picPath" controls> </video> -->
       <img  style="width:400px;height:300px;" :src="data?.picPath" alt="" />
@@ -14,7 +14,19 @@
     <div class="detail-content">
       <div>{{data?.content}}</div>
     </div>
-    <div>
+    <el-popover :visible="visible" placement="top" :width="160">
+    <p>Are you sure to delete this?</p>
+    <div style="text-align: right; margin: 0">
+      <el-button size="small" text @click="visible = false">cancel</el-button>
+      <el-button size="small" type="primary" @click="deleteKnow()"
+        >confirm</el-button
+      >
+    </div>
+    <template #reference>
+      <el-button @click="visible = true">Delete</el-button>
+    </template>
+  </el-popover>
+    <div style="margin-top:20px">
     <el-input type="textarea" v-model="content" :rows="4"></el-input>
   </div>
 
@@ -39,9 +51,12 @@ import { useknowStore } from '@/stores/know';
 import type { Discuss,  Know } from '@/dataource/Types';
 import { ref } from 'vue';
 import  { ElMessageBox } from "element-plus"
+import { useStore } from '@/stores';
 
 
 const store = useknowStore()
+const store1 = useStore()
+const visible = ref(false)
 const data = ref<Know>()
 const content = ref('')
 const discusslist = ref<Discuss[]>([])
@@ -59,15 +74,11 @@ const addCon = () =>{
   ElMessageBox.confirm("评论发布成功");
   }
 }
-
-// watch(store.discuss, (newVal, oldVal) => {
-//   console.log(newVal.values)
-//   console.log(oldVal.values)
-//   store.loadDis(store.detailid)
-// },{
-//     immediate:true,
-//     deep:true
-// })
+const deleteKnow = () =>{
+  
+  store.deleteKnow(store.detailid)
+  visible.value = false
+}
 content.value =''
 </script>
 <style scoped>
