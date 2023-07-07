@@ -108,13 +108,13 @@ const router = createRouter({
           name:"MyKnowledge",
           path:"MyKnowledge",
           component:() => import("@/views/MyKnowledge.vue")
-        },
-        {
-          name:"UserManage",
-          path:"UserManage",
-          component:() => import("@/views/HomeView/UserManageView.vue")
-        },
+        }
       ]
+    },
+    {
+      name:"UserManage",
+      path:"/UserManage",
+      component: () => import ("@/views/HomeView/UserManageView.vue")
     }
   ]
 })
