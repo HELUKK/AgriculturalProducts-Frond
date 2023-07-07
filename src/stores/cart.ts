@@ -1,21 +1,81 @@
 import { defineStore } from 'pinia'
 import axios from '@/axios';
-import type { cartInfo } from '@/dataource/Types';
+import type { cartInfo,Address } from '@/dataource/Types';
 import router from '@/router';
 import {open} from  '@/components/MessageView.vue'
-import { checkCartAPI,addCartAPI,deleteCartAPI,updateCartAPI,selectMyAddressAPI,commitAPI } from  '@/apis/cart'
+import { checkCartAPI,addCartAPI,deleteCartAPI,updateCartAPI,selectMyAddressAPI,commitAPI,changeMyAddressAPI } from  '@/apis/cart'
 import { ref } from 'vue';
 import path from 'path';
+import { ElMessage } from 'element-plus'
 
 export  const useCartStore = defineStore('cartStore', {
     state: () => ({
+       address: {} as Address,
        myCart:[] as cartInfo[],
        choosedCart:[] as cartInfo[],
        tMoney:ref('0'),
     }),
 
    actions:{
+
+    // 修改用户地址
+    async changeAddress (newAddress : string) {
+
+        this.address.addressDetail = newAddress
+
+        const res = await changeMyAddressAPI(this.address)
+        if (res.data.code == 20000) {
+            this.alertSuccessChange()
+        }
+
+        // 修改完成重新加载
+        this.getAddress()
+    },
+
+    // 获取用户地址
+    async getAddress () {
+        const res = await selectMyAddressAPI();
+        this.address = res.data.data
+    },
+
+    // 添加成功提示
+    alertSuccessAdd () {
+        ElMessage({
+            message: '添加成功',
+            type: 'success',
+          })
+    },
+    // 修改数量成功提示
+    alertSuccessChange () {
+        ElMessage({
+          message: '更改成功',
+          type: 'success',
+        })
+      },
     
+    // 删除成功提示
+      alertSuccessDelete () {
+        ElMessage({
+            message: '删除成功',
+            type: 'success',
+          })
+      },
+
+    // 提交成功提示
+    alertSuccessCommite () {
+        ElMessage({
+            message: '提交成功',
+            type: 'success',
+          })
+      },
+
+    // 提交失败提示
+    alertFailedCommite () {
+        ElMessage({
+            message: '请先选择商品',
+            type: 'error',
+          })
+      },
     // 计算总价
     buildTMoney(){
         this.tMoney='0'
@@ -62,7 +122,7 @@ export  const useCartStore = defineStore('cartStore', {
         this.myCart = res.data.data
         if(res.data.code == 20000) {
             //window.location.reload();
-            open("添加成功")
+            this.alertSuccessAdd()
             
         }
     },
@@ -73,10 +133,10 @@ export  const useCartStore = defineStore('cartStore', {
         this.unChoose(shoppingId)
         const res = await deleteCartAPI(shoppingId)
         if ( res.data.code == 20000){
-            window.location.reload();
             this.checkCart()
             this.buildTMoney()
-            alert("删除成功")
+            await this.alertSuccessDelete()
+            window.location.reload();
         }
     },
 
@@ -91,22 +151,30 @@ export  const useCartStore = defineStore('cartStore', {
         this.buildTMoney()
 
         const res = await updateCartAPI(shoppingId,count)
+
         if (res.data.code == 20000){
-            alert("修改成功")
+            this.alertSuccessChange()
         }
     },
 
     async commit () {
-        // 调用搜索地址接口，获取我的地址
+
+        if(this.choosedCart.length == 0) {
+            this.alertFailedCommite()
+            return
+        }else {
+            // 调用搜索地址接口，获取我的地址
         const res1 = await selectMyAddressAPI();
 
         // 调用提交接口
         const res2 = await commitAPI(res1.data.data.id,this.tMoney,this.choosedCart)
 
         if(res2.data.code == 20000){
-            alert("提交成功")
+            await this.alertSuccessCommite()
             window.location.reload();
         }
+        }
+        
     }
  },
 //  persist: {

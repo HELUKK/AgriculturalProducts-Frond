@@ -1,20 +1,6 @@
 <template>
     <el-button type="success" @click="publishClick" style="margin: 10px 20px"
-      >发布商品</el-button >
-    <div class="search" style="text-align: center">
-      <el-input
-        v-model="searchValue"
-        maxlength="100"
-        placeholder="请输入商品内容进行搜索"
-        clearable
-        style="width: 290px"
-      />
-      <img
-        src="../assets/img/search.png"
-        @click="handleSearch"
-        class="search-icon"
-      />
-    </div>
+       >发布商品</el-button >
     <div
       style="
         display: flex;
@@ -43,15 +29,31 @@
             <div style="padding: 0px">
             <span id="span">{{ o.title + "￥:"+o.price }}</span>
             <div class="bottom">
-            <el-button type="success" round>修改</el-button>
-            <el-button type="success" round>删除</el-button>
+            <el-button type="success" @click="handleClick(o.orderId ,ch)" round>修改</el-button>
+            <el-button type="success"  @click="handleClick(o.orderId,de)"  round>删除</el-button>
           </div>
         </div>
         </el-card>
          </el-col>
          </el-row> 
           <el-pagination class="bu" layout="prev, pager, next" v-model:current-page="page" :total="store.gtotal"  />
-          </div>     
+          </div>   
+          <el-dialog
+      v-model="dialogVisible"
+      title="Tips"
+      width="30%"
+      :before-close="handleClose"
+    >
+      <span>确定{{type}}该{{$route.meta.type}} ?</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="excute" >
+            确定
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>  
   </div>
 </template>
 
@@ -59,31 +61,53 @@
 import { onMounted, ref, watch } from 'vue'; 
 import {useStore} from '@/stores/index'
 import router from '@/router';
+import { ElMessageBox } from 'element-plus'
+  let dialogVisible = ref(false)
+  const ch = "修改" as string
+  const de = "删除" as string
+  let type = ""
+  const handleClose = (done: () => void) => {
+    ElMessageBox.confirm('Are you sure to close this dialog?')
+      .then(() => {
+        done()
+      })
+      .catch(() => {
+        // catch error
+      })
+  }
 const page = ref(1)
 const store = useStore()
-const searchValue = ref("")
+let id = 0
+const handleClick = (nid:number,ntype:string) =>{
+     dialogVisible.value = true
+     id=nid
+     type=ntype
+}
 const publishClick= () =>{
    router.push("/handlePG")
 }
-const handleSearch= ()=>{
-
-}
-const deleteInfo = (id:number) => {
-
-}
-const changeInfo = (id:number)=>{
-
+const excute = () =>{
+    if(type == ch){
+     store.updateMyg(id)
+    }
+    else if(type == de){
+      store.deleMygoods(id)
+    }
+    dialogVisible.value = false
 }
 watch(page,(newValue,oldValue)=>{
-  alert(page)
        store.loadMygoods(newValue);
 })
 onMounted(()=>{
+
   store.loadMygoods(page.value)
 })
 </script>
 
 <style lang="less" scoped>
+.dialog-footer button:first-child {
+    margin-right: 10px;
+  }
 .bu{
   position: fixed;
   bottom: 10vh;

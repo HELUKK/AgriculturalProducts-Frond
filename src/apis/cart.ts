@@ -1,5 +1,5 @@
 import axios from '@/axios';
-import type { cartInfo } from '@/dataource/Types';
+import type { cartInfo,Address } from '@/dataource/Types';
 
 export const addCartAPI = (orderId : number) => {
     return axios ({
@@ -33,6 +33,14 @@ export const selectMyAddressAPI = () => {
     return axios ({
         url: '/address/selectDefaultByOwnName',
         method: 'get'
+    })
+}
+
+export const changeMyAddressAPI = (address:Address) => {
+    return axios ({
+        url:'/address/defaultAddressInfoUpdate',
+        method: 'post',
+        data: address
     })
 }
 
