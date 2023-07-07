@@ -5,6 +5,10 @@
             <div class="title">
             <el-icon size="30px" id="ic" color="rgb(151, 231, 58)" ><ShoppingCart /></el-icon>
             <h2 id="h">农业知识界面</h2>
+            <div class="buttonp">
+            <el-button style="text-align: center;"  type="success"  @click="regit">添加农业知识</el-button>
+            <el-button style="text-align: center;"  type="success">删除农业知识</el-button>
+            </div>
         </div>
         </el-header>
         <!-- main -->
@@ -42,28 +46,81 @@
         </el-main>
       </el-container>
     </div>
+    <el-drawer  v-model="drawer"
+    title="添加农业知识"
+    :direction="direction"
+    class="ddd">
+        <span>Hi, there!</span>
+    <!--注册表单-->
+    <el-form :inline="true" :model="newKnow" class="demo-form-inline" >
+
+    <pre><p>  </p></pre>
+    <el-form-item label="标题  ">
+      <el-input v-model="newKnow.title"  placeholder="标题" clearable />
+    </el-form-item>
+    <pre><p>  </p></pre>
+    <el-form-item label="内容  ">
+      <el-input v-model="newKnow.content"  placeholder="内容" clearable />
+    </el-form-item>
+    <pre><p>  </p></pre>
+    <el-form-item label="图片路径">
+      <el-input v-model="newKnow.picPath"  placeholder="图片路径" clearable />
+    </el-form-item>
+    <pre><p>  </p></pre>
+    <el-form-item>
+      <el-button type="primary" size="large" @click="addNewKnow()" >添加农业知识</el-button>
+    </el-form-item>
+  </el-form>
+    </el-drawer>
   </template>
 
   
   <script lang="ts" setup>
-  import {  onMounted, ref, watch } from 'vue'
-  import {useStore} from '@/stores/index';
-    
-  const store = useStore();
+  import {  onMounted, reactive, ref, watch } from 'vue'
+  import { useknowStore } from '@/stores/know';
+  import  { ElMessageBox } from "element-plus"
+  const store = useknowStore();
   const page = ref(store.page)
-  const currentDate = ref(new Date())
-  watch(page,(newValue,oldValue)=>{
+  const drawer = ref(false)
+  const direction = ref('rtl')
+  const newKnow = reactive({
+    title:'',
+    content:'',
+    picPath:''
+  })
+  watch(page,(newValue)=>{
         store.loadKnow(newValue);
   })
   onMounted(()=>{
     store.loadKnow(1);
   })
 
+  const regit = () => {
+    drawer.value = true;
+  }
   const kdetail = (id:number) =>{
     console.log("kdetail调用")
     store.kdetail(id);
 
   }
+  const addNewKnow = ()=>{
+    if((newKnow.title != '') && (newKnow.content != '') && (newKnow.picPath != '')){
+    store.know.knowledgeId = 0
+    store.know.title = newKnow.title
+    store.know.content = newKnow.content
+    store.know.picPath = newKnow.picPath
+    store.know.createTime = new Date()
+    store.know.updateTime = new Date()
+    store.know.ownName = ""
+    store.addKnow(store.know)
+    console.log(store.know.knowledgeId);
+    ElMessageBox.confirm("添加成功")
+    }
+    else{
+      ElMessageBox.confirm("请输入完整数据")
+    }
+  }
+
   </script>
   <style scoped>
   .imgbox{
@@ -142,5 +199,12 @@
     object-fit:fill;
     padding: 0;
     margin: 0;
+  }
+  .buttonp{
+    position: relative;
+    right: 0%;
+  }
+  .ddd{
+  background-color: rgba(255, 255, 255,0.7);
   }
   </style>

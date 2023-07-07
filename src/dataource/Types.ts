@@ -60,14 +60,14 @@ export interface Good {
     "address": string
 }
 export interface Know{
-value: { knowledgeId: number; title: string; content: "草莓"; picPath: string; ownName: string; createTime: string; updateTime: string } | undefined
     "knowledgeId": number,
         "title": string,
         "content": string,
         "picPath": string,
         "ownName": string,
-        "createTime": string,
-        "updateTime": string
+        "createTime": Date,
+        "updateTime": Date
+
 }
 
 export interface cartInfo{
@@ -96,4 +96,29 @@ role: any
         "question": string,
         "answer": string,
         "status": number
+}
+
+//预约信息
+export interface Reserve{
+    id?:number
+    expertName?:string
+    questioner?:string
+    area?:string
+    address:string
+    plantName:string
+    soilCondition:string
+    plantCondition?:string
+    plantDetail:string
+    message?:string
+    answer?:string
+    status?:number
+    phone?:string
+}
+export interface Address{
+    "id":number,
+    "ownName":string,
+    "consignee":string,
+    "phone":string,
+    "addressDetail":string,
+    "isDefault":boolean
 }

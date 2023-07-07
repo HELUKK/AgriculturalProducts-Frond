@@ -37,8 +37,9 @@ export  const userStore = defineStore('userStore', {
             //   console.log("user:"+this.user);
               //将user存入sessionStorage
               window.sessionStorage.setItem("user",JSON.stringify(this.user))
+              window.location.reload()
           } catch {        // 
-            console.log('登录后返回用户所有属性');
+            console.log('登录后返回用户所有属性失效');
          }
             
         },
@@ -83,6 +84,8 @@ export  const userStore = defineStore('userStore', {
         })
         console.log(resp.data)
         alert('用户删除成功')
+        //删除成功后自动刷新页面
+        window.location.reload()
         console.log(resp.data.message)
         console.log('deleteUserByUsername已运行结束');
     } catch {
@@ -102,6 +105,8 @@ export  const userStore = defineStore('userStore', {
         alert(resp.data.message+","+resp.data.data)
       }else{
         alert('用户信息更新成功')
+        //更新成功后自动刷新页面
+        window.location.reload()
       }
       console.log(resp.data.message)
       console.log('updateUserByUsername已运行结束');
