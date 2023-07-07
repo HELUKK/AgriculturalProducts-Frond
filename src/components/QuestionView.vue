@@ -43,16 +43,19 @@ identityNum:0,
 address: ' ',
 role: '',
 }
+
+  const index2=ref(0)
   const from = ref(fromf)
 // 弹框开关
 const dialogVisible = ref(false)
 const flag=usestore.user.role=='user'
-const open = (row:Question)=>{
+const open = (row:Question,index:number)=>{
   //打开弹框
   dialogVisible.value = true
   from.value.answer=row.answer
   from.value.title=row.title
   from.value.question=row.question
+  index2.value=index
 }
 
 defineExpose({
@@ -64,7 +67,10 @@ const emit = defineEmits(['on-updata'])
 const user = userStore()
 //点击更新按钮,更新数据,关闭弹窗通知父页面更新列表数据
 const onUpdata = async()=>{
-  await user.updateUserByUsername(from.value)
+
+  usestore.userquestions[index2.value].question=from.value.question
+  usestore.userquestions[index2.value].answer=from.value.answer
+  await user.updateQuestion()
   dialogVisible.value = false
   emit('on-updata')
 }

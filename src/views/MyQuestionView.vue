@@ -27,11 +27,11 @@
   
   
   <script lang="ts" setup>
-  import { ref,onMounted,router } from 'vue'
+  import { ref,onMounted } from 'vue'
   import {useStore} from '@/stores/index';
   import {userStore} from '@/stores/user';
-  import type { Question, User } from '@/dataource/Types';
-  import { ElMessage, ElMessageBox } from 'element-plus'
+  import type { User } from '@/dataource/Types';
+
   import Edit from '@/components/QuestionView.vue'
   let storedData = window.sessionStorage.getItem('user')
 
@@ -50,13 +50,13 @@
     storedData = JSON.stringify(user)
     console.log('user不存在');
   }
+  const userstore=userStore()
   const user = JSON.parse(storedData)
-  const changeflag=(user.role=='user') as boolean
   const editRef = ref()
   const handleEdit = (index:number) => {
 
     //打开页面并传入数据双向绑定
-    editRef.value.open(usestore.userquestions[index])
+    editRef.value.open(usestore.userquestions[index],index)
     // user.updateUserByUsername(userName)
   }
 
@@ -68,23 +68,12 @@
 
 
 
-  const userstore=userStore()
-  let changecontent=ref<string>('')
-  const fuzhi=(index:number)=>{
-    console.log(usestore.userquestions[index].question)
-    changecontent.value=usestore.userquestions[index].question
-  }
-
-  const determine=(index:number)=>{
-    usestore.userquestions[index].question=changecontent.value
-  }
 
   onMounted(()=>{
     console.log(user)
     console.log(111)
     usestore.loaduserQuestions(user.role as string)
     })
-  const childBorder = ref(false)
 
   </script>
   
